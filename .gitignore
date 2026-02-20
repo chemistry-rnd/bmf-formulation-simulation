@@ -1,0 +1,8 @@
+# Output files for clients (PDFs, text messages)
+output/
+
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Screenshots
+*.png

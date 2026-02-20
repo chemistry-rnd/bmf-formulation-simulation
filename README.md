@@ -57,11 +57,29 @@
 
 **"Драфт"** = всегда стадия 1 документа №1 (описание технологии).
 
+## Выходные форматы
+
+```
+projects/{project}/               ← исходники (MD + HTML)
+  ├── draft-v1-technology.md
+  ├── draft-v1-technology.html
+  ├── client-memo.md
+  └── client-memo.html
+
+output/{project}/                 ← готовые файлы для клиента (в .gitignore)
+  ├── draft-v1-technology.pdf
+  ├── client-memo.pdf
+  └── telegram-message.txt
+```
+
+Цепочка: **MD** (исходник) → **HTML** (предпросмотр) → **PDF** (клиенту) + **TXT** (Telegram).
+
 ## Проекты
 
 | Проект | Область | Стадия | Кластер Сколково | Документы |
 |--------|---------|--------|-----------------|-----------|
 | **VivaCrumb** | Clean-label shelf-life, хлебопечение | 1→2 | Биомед / 6.6 | [Google Drive](https://drive.google.com/drive/u/0/folders/16K5c1MKNjj1_MUVmFQZxQoL1oQut8qRV) |
+| **VVD** | Банное оборудование: выбросы, PCM, микроклимат | 1 | Энерготех / 1.3 | `projects/vvd/` |
 | **MEL-HFN** | Нетканое полотно из полых волокон, механическое спутывание | Исследование | — | [Google Drive](https://drive.google.com/drive/u/0/folders/1bRVYZF8cZNk9rWKu433KsXB9PVC2eO9X) |
 
 ### VivaCrumb — документы в Google Drive
@@ -105,11 +123,13 @@
 
 | Промпт | Стадия | Назначение |
 |--------|--------|-----------|
-| [01-initial-draft.md](prompts/01-initial-draft.md) | 1, 2 | Генерация драфта / полной версии |
+| [01-initial-draft.md](prompts/01-initial-draft.md) | 1, 2 | Генерация драфта (12 разделов, направления R&D, 4 прохода вычитки) |
 | [02-expert-review-response.md](prompts/02-expert-review-response.md) | 3 | Обработка замечаний эксперта |
 | [03-section-refinement.md](prompts/03-section-refinement.md) | 1-4 | Доработка конкретного раздела |
 | [04-questionnaire-generation.md](prompts/04-questionnaire-generation.md) | 1, 2 | Генерация анкеты для сбора данных |
-| [05-final-polish.md](prompts/05-final-polish.md) | 4 | Финальная вычитка |
+| [05-final-polish.md](prompts/05-final-polish.md) | 4 | Финальная вычитка (7 аспектов) |
+| [06-client-memo.md](prompts/06-client-memo.md) | 1 | Записка для клиента к драфту |
+| [07-telegram-message.md](prompts/07-telegram-message.md) | 1 | Короткое сообщение в Telegram |
 
 История: [prompts/history/vivacrumb-session.md](prompts/history/vivacrumb-session.md) — разбор 12 промптов по VivaCrumb.
 
