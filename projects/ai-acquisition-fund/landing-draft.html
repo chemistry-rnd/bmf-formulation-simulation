@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Driven Acquisition — Инвестиции в промышленные компании с быстрой окупаемостью через AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text-muted: #8888a0;
+    --accent: #6366f1;
+    --accent-light: #818cf8;
+    --accent-glow: rgba(99, 102, 241, 0.15);
+    --green: #22c55e;
+    --green-glow: rgba(34, 197, 94, 0.12);
+    --orange: #f59e0b;
+    --red: #ef4444;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-weight: 800; font-size: 18px; letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logo-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), #a855f7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff;
+  }
+  nav a {
+    color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--text); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-cta {
+    padding: 8px 20px; border-radius: 8px;
+    background: var(--accent); color: #fff !important;
+    font-size: 14px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent-light); }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 820px; position: relative; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 100px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted); font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .hero-badge span { color: var(--green); }
+  h1 {
+    font-size: clamp(36px, 5.5vw, 64px);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--accent-light), #a855f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 18px; color: var(--text-muted); max-width: 600px;
+    margin: 0 auto 48px; line-height: 1.7;
+  }
+  .hero-cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 14px 32px; border-radius: 10px;
+    background: var(--accent); color: #fff;
+    font-size: 15px; font-weight: 600;
+    border: none; cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .btn-secondary {
+    padding: 14px 32px; border-radius: 10px;
+    background: var(--surface-2); color: var(--text);
+    font-size: 15px; font-weight: 600;
+    border: 1px solid var(--border); cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-secondary:hover { border-color: var(--accent); background: var(--accent-glow); }
+
+  /* ---- STATS BAR ---- */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    max-width: 780px; margin: 0 auto;
+    border: 1px solid var(--border); border-radius: 16px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .stat-item {
+    padding: 32px; text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-size: 36px; font-weight: 800; letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--accent-light), #a855f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+
+  /* ---- SECTIONS ---- */
+  section { padding: 100px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 13px; font-weight: 600; color: var(--accent-light);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 20px; line-height: 1.15;
+  }
+  .section-desc {
+    font-size: 17px; color: var(--text-muted); max-width: 640px;
+    line-height: 1.7; margin-bottom: 56px;
+  }
+
+  /* ---- THESIS SECTION ---- */
+  .thesis-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .thesis-card {
+    padding: 36px; border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  .thesis-card:hover { border-color: var(--accent); }
+  .thesis-card.wide { grid-column: 1 / -1; }
+  .thesis-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .thesis-icon.sales { background: var(--green-glow); }
+  .thesis-icon.ops { background: rgba(239, 68, 68, 0.1); }
+  .thesis-icon.control { background: var(--accent-glow); }
+  .thesis-icon.ai { background: rgba(245, 158, 11, 0.1); }
+  .thesis-card h3 {
+    font-size: 20px; font-weight: 700; margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+  .thesis-card p {
+    font-size: 15px; color: var(--text-muted); line-height: 1.7;
+  }
+
+  /* ---- PROCESS ---- */
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    background: var(--border); border-radius: 16px; overflow: hidden;
+  }
+  .process-step {
+    padding: 36px 28px; background: var(--surface);
+    position: relative;
+  }
+  .step-num {
+    font-size: 48px; font-weight: 800;
+    color: var(--surface-2);
+    -webkit-text-stroke: 1px var(--border);
+    margin-bottom: 16px; line-height: 1;
+  }
+  .process-step h3 {
+    font-size: 17px; font-weight: 700; margin-bottom: 10px;
+  }
+  .process-step p {
+    font-size: 14px; color: var(--text-muted); line-height: 1.6;
+  }
+
+  /* ---- METHODOLOGY ---- */
+  .method-section { background: var(--surface); }
+  .method-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .method-card {
+    padding: 32px; border-radius: 16px;
+    background: var(--bg); border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .method-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .method-card:nth-child(1)::before { background: linear-gradient(90deg, var(--accent), transparent); }
+  .method-card:nth-child(2)::before { background: linear-gradient(90deg, var(--green), transparent); }
+  .method-card:nth-child(3)::before { background: linear-gradient(90deg, var(--orange), transparent); }
+  .method-card:nth-child(4)::before { background: linear-gradient(90deg, #a855f7, transparent); }
+
+  .method-number {
+    font-size: 13px; font-weight: 700; color: var(--accent-light);
+    margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .method-card h3 {
+    font-size: 19px; font-weight: 700; margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+  .method-card p {
+    font-size: 14px; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .method-indicator {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600;
+  }
+  .indicator-bar {
+    flex: 1; height: 6px; border-radius: 3px;
+    background: var(--surface-2); overflow: hidden;
+  }
+  .indicator-fill {
+    height: 100%; border-radius: 3px;
+    transition: width 0.6s ease;
+  }
+  .indicator-fill.good { background: var(--green); }
+  .indicator-fill.warn { background: var(--orange); }
+  .indicator-fill.accent { background: var(--accent); }
+  .indicator-fill.purple { background: #a855f7; }
+
+  .method-formula {
+    margin-top: 48px; padding: 32px; border-radius: 16px;
+    background: var(--bg); border: 1px solid var(--border);
+    text-align: center;
+  }
+  .formula-label {
+    font-size: 13px; font-weight: 600; color: var(--accent-light);
+    text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;
+  }
+  .formula {
+    font-size: 22px; font-weight: 700; font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    padding: 20px;
+    background: var(--surface); border-radius: 10px; border: 1px solid var(--border);
+    display: inline-block;
+  }
+  .formula .var-sales { color: var(--green); }
+  .formula .var-ops { color: var(--red); }
+  .formula .var-auto { color: var(--accent-light); }
+  .formula-note {
+    font-size: 13px; color: var(--text-muted); margin-top: 16px; line-height: 1.6;
+  }
+
+  /* ---- SCORING TABLE ---- */
+  .scoring-table {
+    margin-top: 48px;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .scoring-table table {
+    width: 100%; border-collapse: collapse;
+    font-size: 14px;
+  }
+  .scoring-table th {
+    padding: 14px 20px; text-align: left;
+    background: var(--surface-2);
+    font-weight: 600; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .scoring-table td {
+    padding: 14px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .scoring-table tr:last-child td { border-bottom: none; }
+  .scoring-table td:first-child { color: var(--text); font-weight: 500; }
+  .score-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+  }
+  .score-badge.high { background: var(--green-glow); color: var(--green); }
+  .score-badge.medium { background: rgba(245, 158, 11, 0.12); color: var(--orange); }
+  .score-badge.low { background: rgba(239, 68, 68, 0.1); color: var(--red); }
+
+  /* ---- CTA ---- */
+  .cta-section {
+    text-align: center;
+    padding: 120px 24px;
+  }
+  .cta-box {
+    max-width: 680px; margin: 0 auto;
+    padding: 64px 48px; border-radius: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-box h2 { position: relative; }
+  .cta-box p {
+    font-size: 16px; color: var(--text-muted); margin-bottom: 36px;
+    position: relative;
+  }
+
+  /* ---- FOOTER ---- */
+  footer {
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 13px; color: var(--text-muted);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .stats-bar { grid-template-columns: 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat-item:last-child { border-bottom: none; }
+    .thesis-grid { grid-template-columns: 1fr; }
+    .thesis-card.wide { grid-column: auto; }
+    .process-steps { grid-template-columns: 1fr; }
+    .method-grid { grid-template-columns: 1fr; }
+    .formula { font-size: 14px; padding: 16px; word-break: break-all; }
+    .scoring-table { overflow-x: auto; }
+    section { padding: 64px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">AI</div>
+    AI Acquisition Fund
+  </div>
+  <div class="nav-links">
+    <a href="#thesis">Тезис</a>
+    <a href="#process">Процесс</a>
+    <a href="#methodology">Методика</a>
+    <a href="#contact">Контакт</a>
+  </div>
+  <a href="#contact" class="nav-cta">Обсудить</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>&#9679;</span> Инвестиционная стратегия &middot; Россия
+    </div>
+    <h1>Покупаем компании с сильными продажами.<br><span class="highlight">Чиним остальное через AI.</span></h1>
+    <p class="hero-sub">
+      Находим промышленные бизнесы с работающим отделом продаж,
+      но проблемами в производстве, качестве и&nbsp;операционке.
+      Получаем контроль — и&nbsp;кратно повышаем эффективность за&nbsp;счёт AI-автоматизации.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#methodology" class="btn-primary">Методика отбора</a>
+      <a href="#contact" class="btn-secondary">Стать партнёром</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container" style="margin-top: -40px; position: relative; z-index: 2;">
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">6-18 мес.</div>
+      <div class="stat-label">Целевой срок окупаемости AI-инвестиций</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">30-60%</div>
+      <div class="stat-label">Снижение операционных костов</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">x3-5</div>
+      <div class="stat-label">Целевой мультипликатор на выходе</div>
+    </div>
+  </div>
+</div>
+
+<!-- THESIS -->
+<section id="thesis">
+  <div class="container">
+    <div class="section-label">Инвестиционный тезис</div>
+    <h2>Почему именно эти компании</h2>
+    <p class="section-desc">
+      Главное условие — работающий процесс продаж. Это самое дорогое и&nbsp;самое сложное
+      для построения с&nbsp;нуля. Всё остальное — производство, качество, логистика —
+      поддаётся системной оптимизации через AI.
+    </p>
+
+    <div class="thesis-grid">
+      <div class="thesis-card">
+        <div class="thesis-icon sales">&#9650;</div>
+        <h3>Сильные продажи — нетрогаемый актив</h3>
+        <p>
+          Налаженный сбыт, клиентская база, каналы, репутация на&nbsp;рынке.
+          Это то, что невозможно автоматизировать быстро, зато можно купить.
+          Компания уже генерирует выручку — нужно только увеличить маржинальность.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-icon ops">&#9660;</div>
+        <h3>Слабая операционка — зона роста</h3>
+        <p>
+          Проблемы с&nbsp;качеством, срывы сроков, ручные процессы, раздутый штат.
+          Именно здесь AI даёт кратный эффект: автоматизация контроля качества,
+          планирование производства, предиктивное обслуживание.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-icon control">&#9670;</div>
+        <h3>Контроль над изменениями</h3>
+        <p>
+          Входим через покупку доли с&nbsp;операционным контролем, поглощение банкротов
+          или инвестицию с&nbsp;правом на&nbsp;управление. Без контроля — нет трансформации.
+          Идеальный сценарий: покупка за&nbsp;символическую сумму при банкротстве.
+        </p>
+      </div>
+      <div class="thesis-card">
+        <div class="thesis-icon ai">&#9733;</div>
+        <h3>AI вместо CAPEX</h3>
+        <p>
+          Классический подход — покупать роботов, станки, оборудование. Это дорого
+          и&nbsp;долго окупается. Наш подход: сначала максимум AI-автоматизации
+          (софт, модели, агенты), затем точечный CAPEX только где без него нельзя.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="background: var(--surface);">
+  <div class="container">
+    <div class="section-label">Как это работает</div>
+    <h2>Четыре фазы трансформации</h2>
+    <p class="section-desc">
+      От&nbsp;поиска цели до&nbsp;кратного роста стоимости бизнеса.
+    </p>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h3>Скоринг и&nbsp;отбор</h3>
+        <p>
+          Автоматический анализ рынка по&nbsp;нашей методике.
+          Скоринг по&nbsp;4&nbsp;критериям. Ранжирование кандидатов по&nbsp;потенциалу AI-трансформации.
+        </p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h3>Сделка</h3>
+        <p>
+          Получение операционного контроля: покупка банкрота,
+          вход в&nbsp;капитал, management buyout. Ключевое — право на&nbsp;изменения.
+        </p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h3>AI-трансформация</h3>
+        <p>
+          Внедрение AI-решений: автоматизация рутины, контроль качества,
+          оптимизация планирования, предиктивная аналитика. 3-6&nbsp;мес. на&nbsp;core-модули.
+        </p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h3>Масштабирование</h3>
+        <p>
+          Рост маржинальности &rarr; рост стоимости бизнеса.
+          Выход через продажу стратегу или IPO на&nbsp;горизонте 3-5&nbsp;лет.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section id="methodology" class="method-section">
+  <div class="container">
+    <div class="section-label">Методика отбора</div>
+    <h2>Как мы оцениваем компании</h2>
+    <p class="section-desc">
+      Четыре ключевых критерия, определяющих потенциал быстрой окупаемости AI-инвестиций.
+      Каждый критерий оценивается от&nbsp;0&nbsp;до&nbsp;25&nbsp;баллов. Порог входа — 60+.
+    </p>
+
+    <div class="method-grid">
+      <!-- Criterion 1 -->
+      <div class="method-card">
+        <div class="method-number">Критерий 01</div>
+        <h3>Соотношение затрат: персонал vs. оборудование</h3>
+        <p>
+          Чем выше доля ФОТ относительно затрат на&nbsp;оборудование — тем лучше.
+          Это значит, что основные процессы завязаны на&nbsp;людей, а&nbsp;не&nbsp;на&nbsp;железо.
+          AI замещает людей быстро и&nbsp;дёшево. Замещать дорогое оборудование — нет.
+        </p>
+        <div class="method-indicator">
+          <span style="color: var(--green); min-width: 60px;">Идеал</span>
+          <div class="indicator-bar"><div class="indicator-fill good" style="width: 80%;"></div></div>
+          <span style="color: var(--text-muted);">ФОТ &gt; 60% от OpEx</span>
+        </div>
+      </div>
+
+      <!-- Criterion 2 -->
+      <div class="method-card">
+        <div class="method-number">Критерий 02</div>
+        <h3>Плотность однотипных должностей</h3>
+        <p>
+          Много сотрудников с&nbsp;одинаковыми ролями = повторяемые процессы =
+          лёгкая автоматизация. 50&nbsp;операторов ОТК, 30&nbsp;комплектовщиков,
+          20&nbsp;менеджеров по&nbsp;рекламациям — каждый кластер автоматизируется одним решением.
+        </p>
+        <div class="method-indicator">
+          <span style="color: var(--green); min-width: 60px;">Идеал</span>
+          <div class="indicator-bar"><div class="indicator-fill good" style="width: 75%;"></div></div>
+          <span style="color: var(--text-muted);">Топ-3 роли &gt; 40% штата</span>
+        </div>
+      </div>
+
+      <!-- Criterion 3 -->
+      <div class="method-card">
+        <div class="method-number">Критерий 03</div>
+        <h3>Доля разъездного персонала</h3>
+        <p>
+          Сотрудники «в&nbsp;полях» (монтажники, водители, сервисные инженеры)
+          автоматизируются сложнее — нужны роботы, а&nbsp;не&nbsp;софт.
+          Чем меньше разъездной работы — тем быстрее окупаемость.
+        </p>
+        <div class="method-indicator">
+          <span style="color: var(--orange); min-width: 60px;">Порог</span>
+          <div class="indicator-bar"><div class="indicator-fill warn" style="width: 35%;"></div></div>
+          <span style="color: var(--text-muted);">Разъездных &lt; 25% штата</span>
+        </div>
+      </div>
+
+      <!-- Criterion 4 -->
+      <div class="method-card">
+        <div class="method-number">Критерий 04</div>
+        <h3>Затраты на&nbsp;R&D / моделирование</h3>
+        <p>
+          Высокие затраты на&nbsp;инженерный софт (MoldSim, ANSYS, SolidWorks Simulation) —
+          сигнал, что AI может радикально ускорить цикл разработки.
+          Генеративный дизайн, AI-симуляции, оптимизация — экономия x5-10 на&nbsp;итерациях.
+        </p>
+        <div class="method-indicator">
+          <span style="color: var(--accent-light); min-width: 60px;">Сигнал</span>
+          <div class="indicator-bar"><div class="indicator-fill purple" style="width: 65%;"></div></div>
+          <span style="color: var(--text-muted);">R&D софт &gt; 5% от выручки</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scoring formula -->
+    <div class="method-formula">
+      <div class="formula-label">Формула скоринга</div>
+      <div class="formula">
+        Score = <span class="var-sales">S<sub>sales</sub></span> &times; (
+        <span class="var-auto">K<sub>fot</sub></span> +
+        <span class="var-auto">K<sub>dup</sub></span> &minus;
+        <span class="var-ops">K<sub>field</sub></span> +
+        <span class="var-auto">K<sub>rnd</sub></span>
+        )
+      </div>
+      <p class="formula-note">
+        S<sub>sales</sub> — оценка качества продаж (0-1, бинарный фильтр),
+        K<sub>fot</sub> — доля ФОТ в&nbsp;OpEx,
+        K<sub>dup</sub> — плотность однотипных ролей,
+        K<sub>field</sub> — штраф за&nbsp;разъездной персонал,
+        K<sub>rnd</sub> — потенциал AI в&nbsp;R&D
+      </p>
+    </div>
+
+    <!-- Scoring examples -->
+    <div class="scoring-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Тип компании</th>
+            <th>ФОТ/OpEx</th>
+            <th>Дубликаты ролей</th>
+            <th>Разъездные</th>
+            <th>R&D софт</th>
+            <th>Оценка</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Производство пластиковых изделий, 200 чел.</td>
+            <td>68%</td>
+            <td>Высокая</td>
+            <td>5%</td>
+            <td>MoldSim, ANSYS</td>
+            <td><span class="score-badge high">87 / 100</span></td>
+          </tr>
+          <tr>
+            <td>Пищевое производство, 150 чел.</td>
+            <td>72%</td>
+            <td>Очень высокая</td>
+            <td>8%</td>
+            <td>Нет</td>
+            <td><span class="score-badge high">74 / 100</span></td>
+          </tr>
+          <tr>
+            <td>Металлообработка, 80 чел.</td>
+            <td>45%</td>
+            <td>Средняя</td>
+            <td>12%</td>
+            <td>SolidWorks</td>
+            <td><span class="score-badge medium">58 / 100</span></td>
+          </tr>
+          <tr>
+            <td>Сервисная компания (HVAC), 120 чел.</td>
+            <td>60%</td>
+            <td>Средняя</td>
+            <td>65%</td>
+            <td>Нет</td>
+            <td><span class="score-badge low">32 / 100</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="cta-box">
+    <h2>Интересно?</h2>
+    <p>
+      Мы ищем партнёров: инвесторов, операционных управленцев
+      и&nbsp;людей с&nbsp;доступом к&nbsp;сделкам на&nbsp;российском рынке.
+    </p>
+    <div class="hero-cta-row">
+      <a href="mailto:hello@example.com" class="btn-primary">Написать нам</a>
+      <a href="#" class="btn-secondary">Скачать тизер</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    AI Acquisition Fund &middot; Россия &middot; 2026
+  </div>
+</footer>
+
+</body>
+</html>
