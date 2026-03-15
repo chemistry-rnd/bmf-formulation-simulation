@@ -514,16 +514,244 @@ projects/ai-acquisition-fund/knowledge-base/
 
 ---
 
+## Блок 7: Позиция фонда — разграничение с робототехникой и hardware AI
+
+Это отдельный chunk для knowledge base. Бот должен чётко объяснять фокус фонда.
+
+### Суть позиции
+
+ScaleWithAI VC видит и признаёт огромный потенциал робототехники, промышленной автоматизации и hardware AI — это мощный тренд, который трансформирует целые отрасли. Но это **не наша зона компетенций**.
+
+Наш фокус — **интеллектуальный капитал**: обучение людей работе с AI-инструментами, повышение выработки на человека, перевод знаний из голов в системы. Это другой тип сделок, другая экспертиза оценки, другая модель создания стоимости.
+
+### Разграничение
+
+| | Робототехника / Hardware AI | ScaleWithAI VC (наш фокус) |
+|---|---|---|
+| Что меняем | Физические процессы, оборудование | Работу людей с информацией |
+| Инвестиция | CapEx: роботы, станки, линии | OpEx: обучение, подписки, инструменты |
+| Payback | 2–5 лет | 2–6 месяцев |
+| Ключевой актив | Hardware, IP на оборудование | Обученная команда, knowledge systems |
+| Риск | Техническая интеграция, обслуживание | Adoption, retention обученных людей |
+| Масштабирование | Закупка нового оборудования | Тиражирование программы обучения |
+
+Если к нам приходит компания, где основной потенциал — в замене конвейера роботами, мы честно скажем: "это не наш профиль, вам нужен другой тип инвестора". Мы сильны там, где ценность создаётся людьми за экранами.
+
+### Задача
+- Оформить как chunk для `knowledge-base/methodology/fund-focus-robotics-positioning.md`
+- Использовать в system prompt чатбота для корректных ответов
+
+---
+
+## Блок 8: Дополнительные географии (Tier 2)
+
+Помимо основных 4 географий (RU, US, EU, IN), имеет смысл рассмотреть:
+
+### 8.1 Бразилия (BR)
+- **Почему**: огромный manufacturing sector, высокая доля ручного труда, много distressed-активов (judicial recovery по Lei 11.101). Большие бэк-офисы, низкая AI-adoption
+- **Distressed**: Serasa Experian, Econodata, judicial recovery filings
+- **Бизнесы на продажу**: OLX Brasil, Empresa à Venda
+- **Зарплаты**: Glassdoor BR, Catho, IBGE (PNAD)
+- **Бенчмарки**: IBGE (Instituto Brasileiro de Geografia e Estatística)
+- **Приоритет**: Tier 2 — собирать после основных 4 географий
+
+### 8.2 Турция (TR)
+- **Почему**: мощная производственная база (текстиль, автокомпоненты, пищёвка), дешёвый ФОТ, но низкая productivity per employee. Много компаний в финансовом стрессе из-за инфляции/девальвации лиры. Идеально под модель "купить дёшево, обучить команду"
+- **Distressed**: TMSF (Tasarruf Mevduatı Sigorta Fonu), Turkish Trade Registry
+- **Зарплаты**: Kariyer.net, Glassdoor TR, TurkStat
+- **Бенчмарки**: TurkStat (TUIK)
+- **Приоритет**: Tier 2
+
+### 8.3 Мексика (MX)
+- **Почему**: nearshoring boom из Китая в US, множество manufacturing SME с ручными процессами. IMMEX/maquila компании с большими бэк-офисами
+- **Distressed**: Ley de Concursos Mercantiles, IFECOM
+- **Зарплаты**: Indeed MX, OCC Mundial, INEGI
+- **Бенчмарки**: INEGI (Instituto Nacional de Estadística y Geografía)
+- **Приоритет**: Tier 2
+
+### 8.4 Польша (PL) — выделить из EU
+- **Почему**: крупнейший manufacturing hub в CEE, EU-доступ, хорошие данные (KRS registry). BPO-хаб (Kraków, Wrocław). Частично покрыта через EU-блок, но стоит выделить как приоритетную страну
+- **Distressed**: KRS (Krajowy Rejestr Sądowy), Monitor Sądowy i Gospodarczy
+- **Зарплаты**: Pracuj.pl, GUS (Główny Urząd Statystyczny)
+- **Приоритет**: Tier 2 (но данные доступнее, чем BR/TR/MX)
+
+### Сроки
+Tier 2 географии — **Фаза 6** (после основных 5 фаз), ориентировочно дни 6–8.
+
+---
+
+## Блок 9: Дополнительные отрасли
+
+Текущий brief покрывает manufacturing, инжиниринг, бэк-офис. Есть пропущенные сегменты с высоким потенциалом для тезиса фонда:
+
+### Высокий приоритет
+
+| Отрасль | Почему подходит | Где искать |
+|---------|----------------|------------|
+| **BPO / Shared Services Centers** | Сотни людей на типовых "экранных" ролях. Идеальный K2. AI-обучение даёт ×3–5 на человека | IN (Bangalore, Hyderabad), PL (Kraków), PH |
+| **Логистика / 3PL** | Диспетчеризация, route planning, документооборот. 30–40% штата — "экранные" роли. Много distressed-активов (маржинальность падает) | RU, US, EU |
+| **Медицинский бэк-офис** | Кодирование диагнозов, medical billing, страховые claims. Karpathy score 8–9. В США — огромный рынок (revenue cycle management) | US (основной), EU |
+| **Агрохолдинги (управляющие компании)** | Не поля, а управление: планирование, закупки, учёт. Большие бэк-офисы, всё в Excel | RU, BR, IN |
+
+### Средний приоритет
+
+| Отрасль | Почему подходит | Где искать |
+|---------|----------------|------------|
+| **Страхование** | Андеррайтинг, claims processing, актуарный бэк-офис. Karpathy score 7–9 | US, EU, IN |
+| **Образование (edtech operations)** | Не контент, а операционка: enrollment, grading, student support | US, IN |
+| **Property management** | Бухгалтерия, tenant relations, maintenance scheduling. Много компаний, типовые роли | US, EU |
+
+### Задача
+- Добавить эти отрасли в фильтры по всем блокам (distressed, businesses for sale, salaries, benchmarks, cases)
+- Расширить NAICS/NACE фильтры: добавить 62 (Health care), 52 (Finance/Insurance), 53 (Real estate), 11 (Agriculture management)
+
+---
+
+## Блок 10: Ключевые исследовательские вопросы
+
+Помимо сбора данных, knowledge base должна содержать ответы на стратегические вопросы. Их нужно исследовать и оформить как отдельные chunks.
+
+### 10.1 Юридические рамки M&A по странам
+
+| Вопрос | Почему важно |
+|--------|-------------|
+| Как иностранный фонд покупает активы в каждой стране? | Структура сделок — ключевое для инвесторов |
+| Ограничения на foreign ownership | IN — FDI caps по секторам; RU — стратегические отрасли; BR — ограничения на land ownership |
+| Структура: прямая покупка vs. SPV vs. JV | Определяет налоги и контроль |
+| Tax implications cross-border M&A | Двойное налогообложение, treaty benefits |
+
+**Источники**: Baker McKenzie guides, PwC Worldwide Tax Summaries, Deloitte M&A country guides (публичные)
+
+### 10.2 Unit economics AI-обучения
+
+| Вопрос | Почему важно |
+|--------|-------------|
+| Стоимость обучения 1 сотрудника AI-инструментам (по ролям, по странам) | Основа financial model фонда |
+| Сколько времени занимает? (2 недели vs. 2 месяца) | Определяет скорость трансформации |
+| Retention rate после обучения | Риск: обученный сотрудник уходит за +50% зарплаты |
+| Какие AI-инструменты используются | ChatGPT Enterprise, Copilot, custom fine-tuned — влияет на OpEx |
+
+**Источники**: LinkedIn Learning reports, Coursera enterprise data, vendor case studies (Microsoft, OpenAI enterprise)
+
+### 10.3 Конкурентный ландшафт
+
+| Вопрос | Почему важно |
+|--------|-------------|
+| Кто ещё делает "buy & AI-transform"? | Знать конкурентов за активы |
+| Search-фонды с AI-тезисом | Прямые конкуренты |
+| PE с AI-операционным тезисом | Alpine Investors (people-focused), Tiny Capital, Constellation Software |
+| Мультипликаторы для "AI-transformed" vs. обычных компаний | Обоснование exit valuation |
+
+**Источники**: PitchBook, Crunchbase, PE fund websites, LP letters (где публичные)
+
+### 10.4 AI-readiness frameworks
+
+| Вопрос | Почему важно |
+|--------|-------------|
+| Готовые frameworks для оценки AI-readiness | Обогатить нашу K1–K4 |
+| McKinsey AI Quotient, Deloitte AI Maturity Model | Сравнить с нашей методикой |
+| Можно ли оценить AI-readiness из открытых данных (hh.ru, LinkedIn, Naukri)? | Скоринг без due diligence |
+
+### 10.5 Failure cases — почему НЕ работает
+
+| Вопрос | Почему важно |
+|--------|-------------|
+| Кейсы провала AI-обучения (resistance, bad tooling, wrong industry) | Бот должен честно говорить "здесь не сработает" |
+| "Долина разочарования" — потратили на AI-трансформацию и не получили ROI | Антипаттерны для скоринга |
+| Отрасли/роли где AI-обучение не даёт кратного эффекта | Границы применимости модели |
+
+**Источники**: Gartner Hype Cycle, MIT Sloan "AI failures" research, HBR case studies
+
+### Задача
+- Каждый вопрос → web research → chunk 500–1000 токенов в `knowledge-base/strategy/`
+- Добавить папку `knowledge-base/strategy/` в структуру
+
+---
+
+## Обновлённая структура папок
+
+```
+projects/ai-acquisition-fund/knowledge-base/
+├── methodology/           ← нарезка из лендинга и плана (15–20 файлов)
+│   └── fund-focus-robotics-positioning.md  ← NEW: позиция по робототехнике
+├── strategy/              ← NEW: ответы на ключевые вопросы
+│   ├── legal-ma-frameworks/    ← по странам
+│   ├── unit-economics/         ← стоимость обучения
+│   ├── competitive-landscape/  ← конкуренты
+│   ├── ai-readiness/           ← frameworks
+│   └── failure-cases/          ← антипаттерны
+├── distressed/
+│   ├── ru/
+│   ├── us/
+│   ├── eu/
+│   ├── in/
+│   ├── br/               ← NEW: Tier 2
+│   ├── tr/               ← NEW: Tier 2
+│   └── mx/               ← NEW: Tier 2
+├── businesses-for-sale/
+│   ├── ru/ us/ eu/ in/
+│   └── br/ tr/ mx/       ← NEW: Tier 2
+├── salaries/
+│   ├── ru/ us/ eu/ in/
+│   └── br/ tr/ mx/       ← NEW: Tier 2
+├── benchmarks/
+│   ├── ru/ us/ eu/ in/
+│   └── br/ tr/ mx/       ← NEW: Tier 2
+└── cases/
+    ├── global/
+    ├── ru/ us/ eu/ in/
+    └── industries/        ← NEW: по доп. отраслям (BPO, logistics, medical billing, agro)
+```
+
+---
+
+## Обновлённый порядок выполнения
+
+### Фаза 1–5 — без изменений (основные 4 географии)
+
+### Фаза 6 — Стратегические вопросы (день 6)
+
+| # | Задача | Время |
+|---|--------|-------|
+| 6.1 | Позиция по робототехнике → chunk | 0.5ч |
+| 6.2 | Legal M&A frameworks (RU, US, EU, IN) | 2ч |
+| 6.3 | Unit economics AI-обучения | 1.5ч |
+| 6.4 | Конкурентный ландшафт | 1.5ч |
+| 6.5 | AI-readiness frameworks | 1ч |
+| 6.6 | Failure cases | 1.5ч |
+
+### Фаза 7 — Дополнительные отрасли (день 7)
+
+| # | Задача | Время |
+|---|--------|-------|
+| 7.1 | BPO/Shared Services: кейсы, зарплаты, бенчмарки | 2ч |
+| 7.2 | Логистика/3PL: distressed, бенчмарки | 1.5ч |
+| 7.3 | Медицинский бэк-офис (US фокус) | 1.5ч |
+| 7.4 | Агрохолдинги (RU, BR, IN) | 1ч |
+
+### Фаза 8 — Tier 2 географии (дни 8–9)
+
+| # | Задача | Время |
+|---|--------|-------|
+| 8.1 | Бразилия: distressed + salaries + benchmarks | 3ч |
+| 8.2 | Турция: distressed + salaries + benchmarks | 2.5ч |
+| 8.3 | Мексика: distressed + salaries + benchmarks | 2.5ч |
+| 8.4 | Польша (выделить из EU): углубление | 1.5ч |
+
+---
+
 ## Обновления к оригинальному brief
 
 Что изменилось относительно `knowledge-base-collection-brief.md`:
 
-1. **География**: RU → RU + US + EU + IN
+1. **География**: RU → RU + US + EU + IN (Tier 1) + BR + TR + MX + PL (Tier 2)
 2. **Папки**: flat → `{блок}/{country}/`
 3. **Источники**: добавлены аналоги для каждой страны
 4. **Зарплаты**: единый набор ролей, маппинг на локальные классификаторы (SOC, ISCO, NIC)
 5. **Язык данных**: RU русский, остальные английский
 6. **Валюта**: всегда локальная + USD
 7. **Отраслевые коды**: кросс-маппинг ОКВЭД ↔ NAICS ↔ NACE ↔ NIC
-8. **Объём**: ×3–4 от оригинального (4 географии)
-9. **Сроки**: 5 рабочих дней вместо 2–3
+8. **Объём**: ×5–6 от оригинального (8 географий + стратегия + доп. отрасли)
+9. **Сроки**: 8–9 рабочих дней вместо 2–3
+10. **Новые блоки**: позиция по робототехнике (Блок 7), Tier 2 географии (Блок 8), доп. отрасли (Блок 9), стратегические вопросы (Блок 10)
+11. **Новая папка**: `knowledge-base/strategy/` — для legal, unit economics, конкурентов, failure cases
