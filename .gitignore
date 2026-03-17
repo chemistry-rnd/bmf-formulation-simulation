@@ -1,6 +1,14 @@
 # Output files for clients (PDFs, text messages)
 output/
 
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+
 # Playwright MCP artifacts
 .playwright-mcp/
 
