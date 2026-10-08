@@ -138,3 +138,12 @@ Generate it from the project's inputs, current requirements, research (including
 ## 12. No concluding summary section
 
 Do not append a concluding recap or generic closing section to the expert-facing Technology Description. In particular, omit sections titled “Практический результат технологии”, “Итоги”, “Заключение”, “Выводы”, “Резюме”, “Summary”, “Conclusion”, or equivalent when their function is merely to repeat earlier content. The document ends at its last substantive required section (such as comparison/advantages), without AI-style summary-of-summary. This is a global requirement for all projects. Distinct required documents, such as executive memos or research recommendations, are unaffected.
+
+
+## 13. Subject-specific precision (all projects)
+
+Prefer concrete domain-specific terms over generic abstractions. Where reliably known, name exact material classes, chemical identities, product/model names, technical standards with identifiers, equipment types, dimensions, methods, patents and company/country identifiers. Slightly longer accurate text is preferable to vague short text. Do not invent precision: if an exact model, grade or identifier is unverified, use the verified class and record the missing detail in review notes. During final QA, search for vague terms (“system”, “solution”, “special component”, “innovative method”) and replace them where supported.
+
+## 14. Skolkovo cluster classification (all projects)
+
+Before drafting, review the current official Skolkovo cluster and priority-direction descriptions, choose the best-fitting cluster and **specific priority/subpriority** by the core commercialized technology (not merely by the use of AI in R&D). Record alternative clusters and reasoning in project research. Place a compact classification block at the very beginning of the expert-facing Technology Description: cluster, priority direction/code, and a one-sentence fit rationale. Verify codes against the current official source; do not invent them or claim formal approval by Skolkovo. Write the main description in terminology consistent with the selected priority without changing the underlying technical facts.
