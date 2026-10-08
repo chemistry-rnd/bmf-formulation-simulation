@@ -49,11 +49,7 @@ If supplied information is already sufficient, skip that research branch.
 
 Fill only gaps needed to create a credible technology.
 
-Store results in:
-- `research/competitors.md`;
-- `research/patents.md`;
-- `research/standards.md`;
-- `research/sources.md`.
+Store generated research in `output/research/` (competitors, patents, standards, sources). `input/` contains only user-supplied material.
 
 For patent-heavy technology, review world and Russia separately when useful.
 
@@ -102,8 +98,8 @@ Unsupported material is corrected, removed, or moved to review notes.
 
 ## Pass 10 — Save iteration
 
-- save immutable `output/versions/vNNN.md`;
-- update `output/current.md`;
+- save immutable `output/final-result/versions/vNNN.md`;
+- update `output/final-result/current.md`;
 - append requirement changes to `requirements-log.md`;
 - put unresolved generator/editor questions in `output/review-notes.md`, never in the main document.
 
