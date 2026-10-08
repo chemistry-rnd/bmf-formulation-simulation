@@ -123,3 +123,12 @@ Remove redundant concluding recaps (including “Практический рез
 - put unresolved generator/editor questions in `output/review-notes.md`, never in the main document.
 
 Then wait for human feedback and repeat.
+
+
+## Pass 0 — Cluster and vocabulary alignment
+
+Review the official Skolkovo clusters and priority directions. Determine the primary cluster and exact supported direction; record alternatives and the official source in output/research/skolkovo-classification.md. Read the domain input and prepare a glossary of verified specific names, material grades, methods, models, standards and identifiers. This happens before the outline and first draft. Do not invent identifiers.
+
+## Final precision check
+
+Review every section for generic/abstract formulations. Replace them with the most concrete verified technical language available, including named materials, classes, procedures and standards. Verify the classification block is at the top and reflects the actual technical subject, not just its AI research tooling.
