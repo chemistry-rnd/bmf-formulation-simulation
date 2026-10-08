@@ -79,6 +79,14 @@ The document must explain how the system works and how critical characteristics 
 
 Keep research/planning uncertainty out of the main document.
 
+## Pass 7a — Mandatory comparison tables
+
+Produce two separate tables:
+1. Comparison with market analogues (real products/companies, countries, links, comparable parameters).
+2. Advantages over analogues (differentiator, analogue behavior, practical benefit, evidence/verification).
+
+Run a first content/evidence pass and a second dedicated readability pass: compact headings, short cells, balanced orientation, split overwide tables and verify clickable links.
+
 ## Pass 8 — Requirements QA
 
 Reread global and project requirements from scratch.
