@@ -1,7 +1,0 @@
-fastapi==0.115.6
-uvicorn[standard]==0.34.0
-openai==1.58.1
-sse-starlette==2.2.1
-google-cloud-secret-manager==2.21.1
-google-cloud-firestore==2.19.0
-pydantic==2.10.4

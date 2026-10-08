@@ -1,158 +1,32 @@
-# rnd-forge
+# R&D Forge
 
-База знаний и инструментарий для подготовки технологических описаний инновационных проектов.
+Workspace and playbook for turning incomplete project inputs into a coherent, expert-facing Technology Description.
 
-## Структура проекта: 5 основных документов
+## Repository model
 
-Каждый проект (технология) состоит из **5 основных документов** + любого количества дополнительных.
-
-### Основные документы
-
-| № | Документ | Описание |
-|---|----------|----------|
-| **1** | **Описание технологии** | Главный документ. Проходит полный цикл: драфт → полная версия → экспертиза → финал. Когда говорим "драфт" — имеем в виду именно этот документ. |
-| **2** | **Программа испытаний** | Методика оценки эффективности технологии. Что измеряем, как, на каком оборудовании. |
-| **3** | **Отчёт о результатах испытаний** | Конкретные результаты: таблицы данных, сравнения, выводы. |
-| **4** | **Обзор рынка / патентов / аналогов** | Конкурентный ландшафт, существующие решения, патентная чистота. |
-| **5** | **Приложение с диаграммой** | Визуализация технологического процесса (красивая схема/инфографика). Прикладывается к документу №1. |
-
-### Дополнительные документы (сколько нужно)
-
-- Глоссарий терминов
-- Потребительские предпочтения / запросы рынка
-- Калибрующие вопросы / анкеты для производства
-- ТЗ к иллюстрациям
-- Задачи и трекеры
-- ...
-
-## Workflow: жизненный цикл описания технологии (документ №1)
-
-```
-СТАДИЯ 1: ДРАФТ                       СТАДИЯ 2: ПОЛНАЯ ВЕРСИЯ
-┌───────────────────┐                  ┌───────────────────┐
-│ Краткое описание  │                  │ Детальное описание│
-│ технологии:       │                  │ всех модулей:     │
-│ - общие идеи      │   Клиент OK     │ - KPI с числами   │
-│ - что внедрить    │ ─────────────→   │ - экономика       │
-│ - для кого        │                  │ - риски           │
-│                   │                  │ - конкуренты      │
-│ ⚠️ Конкретно, не  │                  │                   │
-│ "компьютерно"!    │                  │ Доп: документы    │
-│                   │                  │ №2, №3, №4        │
-└───────────────────┘                  └─────────┬─────────┘
-                                                 │
-                          ┌──────────────────────┘
-                          ↓
-СТАДИЯ 3: ЭКСПЕРТИЗА                   СТАДИЯ 4: ФИНАЛ
-┌───────────────────┐                  ┌───────────────────┐
-│ Эксперт 1         │                  │ Обработка всех    │
-│   → замечания     │   Замечания      │ замечаний         │
-│ Эксперт 2         │ ─────────────→   │ + финальная       │
-│   → замечания     │                  │   полировка       │
-│                   │                  │ + диаграмма (№5)  │
-│ Два предметных    │                  │                   │
-│ эксперта с рынка  │                  │ Готово к подаче   │
-└───────────────────┘                  └───────────────────┘
+```text
+rules/                         global requirements for every project
+playbook/                      generation/research workflow
+projects/
+  <project>/
+    input/                     everything supplied by the client/project owner
+    requirements.md            current project-specific requirements
+    requirements-log.md        append-only requirement/decision history
+    research/                  evidence gathered during generation
+      competitors.md
+      patents.md
+      standards.md
+      sources.md
+    output/
+      current.md               latest accepted/review version
+      versions/                immutable snapshots
+      review-notes.md          issues that should not leak into main document
 ```
 
-**"Драфт"** = всегда стадия 1 документа №1 (описание технологии).
+## Core rule
 
-## Выходные форматы
+The main Technology Description is written as a complete technology for expert review. Internal uncertainty and work planning belong in research/review files, not in the main document.
 
-```
-projects/{project}/               ← исходники (MD + HTML)
-  ├── draft-v1-technology.md
-  ├── draft-v1-technology.html
-  ├── client-memo.md
-  └── client-memo.html
+Generation is currently manual. CI/LLM automation will implement the same playbook later.
 
-output/{project}/                 ← готовые файлы для клиента (в .gitignore)
-  ├── draft-v1-technology.pdf
-  ├── client-memo.pdf
-  └── telegram-message.txt
-```
-
-Цепочка: **MD** (исходник) → **HTML** (предпросмотр) → **PDF** (клиенту) + **TXT** (Telegram).
-
-## Проекты
-
-| Проект | Область | Стадия | Кластер Сколково | Документы |
-|--------|---------|--------|-----------------|-----------|
-| **VivaCrumb** | Clean-label shelf-life, хлебопечение | 1→2 | Биомед / 6.6 | [Google Drive](https://drive.google.com/drive/u/0/folders/16K5c1MKNjj1_MUVmFQZxQoL1oQut8qRV) |
-| **VVD** | Банное оборудование: выбросы, PCM, микроклимат | 1 | Энерготех / 1.3 | `projects/vvd/` |
-| **MEL-HFN** | Нетканое полотно из полых волокон, механическое спутывание | Исследование | — | [Google Drive](https://drive.google.com/drive/u/0/folders/1bRVYZF8cZNk9rWKu433KsXB9PVC2eO9X) |
-
-### VivaCrumb — документы в Google Drive
-
-| № | Документ | Файл |
-|---|----------|------|
-| 1 | Описание технологии | (main) Приложение к описанию технологии |
-| 3 | Отчёт о результатах | Отчёт о результатах испытаний |
-| 4 | Обзор рынка | Обзор рынка и существующих технологий |
-| 4 | Обзор патентов | Обзор патентов: продление свежести ремесленного хлеба |
-| 5 | ТЗ к диаграмме | Техническое задание к иллюстрациям тех процесса |
-| — | Доп: Глоссарий | Глоссарий технологий продления свежести хлеба |
-| — | Доп: Потребители | Потребительские запросы к хлебу |
-| — | Доп: Анкета | Калибрующие вопросы Городской Батон |
-| — | Доп: Эксперт | Гришин Сергей — версия с комментариями |
-| — | Доп: Задачи | Вова Задачки skillset |
-| — | Доп: Эксперты | Папка "эксперты" |
-
-### MEL-HFN — документы в Google Drive
-
-| № | Документ | Файл |
-|---|----------|------|
-| 1 | Описание технологии | Технология TAB-HF (объёмно-связанное полотно из полых волокон) |
-| 2 | Программа испытаний | Программа испытаний и методика оценки MEL-HFN |
-| 3 | Отчёт о результатах | Отчёт о результатах испытаний MEL-HFN (матрасный настил) |
-
-### MEL-HFN — диалоги ChatGPT
-
-| Диалог | О чём |
-|--------|-------|
-| [Иллюстрации MEL-HFN](https://chatgpt.com/c/68e3217c-e1b8-8327-88b3-d7b9ada256fb) | Поиск и генерация иллюстраций процесса |
-| Подходы к укладке MEL-HFN | Спецификации волокна: 3.3-15 dtex, 32-64 мм, rPET |
-| Холлофайбер и технологии | ПЭТ HCS 11 дтекс × 64 мм, hollow ~30-35% |
-| Технология производства материалов | Бикомпонентное волокно |
-
----
-
-## Навигация по репозиторию
-
-### [prompts/](prompts/) — Библиотека промптов
-
-| Промпт | Стадия | Назначение |
-|--------|--------|-----------|
-| [01-initial-draft.md](prompts/01-initial-draft.md) | 1, 2 | Генерация драфта (12 разделов, направления R&D, 4 прохода вычитки) |
-| [02-expert-review-response.md](prompts/02-expert-review-response.md) | 3 | Обработка замечаний эксперта |
-| [03-section-refinement.md](prompts/03-section-refinement.md) | 1-4 | Доработка конкретного раздела |
-| [04-questionnaire-generation.md](prompts/04-questionnaire-generation.md) | 1, 2 | Генерация анкеты для сбора данных |
-| [05-final-polish.md](prompts/05-final-polish.md) | 4 | Финальная вычитка (7 аспектов) |
-| [06-client-memo.md](prompts/06-client-memo.md) | 1 | Записка для клиента к драфту |
-| [07-telegram-message.md](prompts/07-telegram-message.md) | 1 | Короткое сообщение в Telegram |
-
-История: [prompts/history/vivacrumb-session.md](prompts/history/vivacrumb-session.md) — разбор 12 промптов по VivaCrumb.
-
-### [research/](research/) — Исследования
-
-| Раздел | Файлы |
-|--------|-------|
-| [research/skolkovo/](research/skolkovo/) | Справка, кластеры, критерии, процесс подачи, документы |
-| [research/general/](research/general/) | Принципы написания описаний (из опыта VivaCrumb) |
-
-### [templates/](templates/) — Шаблоны
-
-| Шаблон | Назначение |
-|--------|-----------|
-| [technology-description.md](templates/technology-description.md) | Шаблон документа №1 (описание технологии) |
-| [expert-questionnaire.md](templates/expert-questionnaire.md) | Анкета для предметного специалиста |
-| [skolkovo-application.md](templates/skolkovo-application.md) | Заявка в Сколково по 4 критериям |
-
-### [checklists/](checklists/) — Чеклисты
-
-| Чеклист | Стадия |
-|---------|--------|
-| [before-expert-review.md](checklists/before-expert-review.md) | Перед стадией 3 |
-| [after-expert-review.md](checklists/after-expert-review.md) | После стадии 3 |
-| [skolkovo-readiness.md](checklists/skolkovo-readiness.md) | Перед подачей в Сколково |
-| [data-collection.md](checklists/data-collection.md) | Стадия 1-2 (сбор данных) |
+Start with `playbook/technology-description.md`.
