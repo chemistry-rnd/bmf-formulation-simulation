@@ -111,6 +111,10 @@ Unsupported material is corrected, removed, or moved to review notes.
 
 Create `output/ai-research-specification.md` as a separate deliverable. Define a multi-option deep research brief with real-world scenario modelling, objective functions, uncertainty, constraints, evidence and expected outputs. Do not prescribe a specific LLM, agent framework, software stack or simulation tool. The future research executor selects and justifies its tools. Keep virtual results distinct from laboratory evidence.
 
+## Pass 9b — Closing-section QA
+
+Remove redundant concluding recaps (including “Практический результат технологии”). End the expert-facing description with its last substantive section; no summary-of-summary.
+
 ## Pass 10 — Save iteration
 
 - save immutable `output/final-result/versions/vNNN.md`;
