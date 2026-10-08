@@ -117,3 +117,10 @@ These tables are mandatory across projects; project-specific requirements may ad
 **Pass 2 — readability review:** inspect both tables as rendered Markdown, shorten column headers, trim dense cells, balance vertical/horizontal layout, split overloaded tables, ensure links are usable, and confirm they remain understandable without surrounding paragraphs.
 
 Acceptance: both tables present, readable on a normal document width, no oversized text columns, no invented companies/countries/links/results, and clear practical advantages.
+
+
+## 10. No standalone Sources section
+
+The expert-facing Technology Description must **not** contain a standalone `Источники`, `Sources`, `References`, or `Библиография` section. This rule applies to all projects.
+
+Preserve source links where they are useful: directly in market-comparison tables, patent entries, and adjacent to claims when necessary. Keep the complete source ledger in `output/research/sources.md`, not in the final document. Never remove provenance or fabricate citations merely to satisfy this formatting rule.
