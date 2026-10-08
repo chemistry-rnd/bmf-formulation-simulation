@@ -124,3 +124,12 @@ Acceptance: both tables present, readable on a normal document width, no oversiz
 The expert-facing Technology Description must **not** contain a standalone `Источники`, `Sources`, `References`, or `Библиография` section. This rule applies to all projects.
 
 Preserve source links where they are useful: directly in market-comparison tables, patent entries, and adjacent to claims when necessary. Keep the complete source ledger in `output/research/sources.md`, not in the final document. Never remove provenance or fabricate citations merely to satisfy this formatting rule.
+
+
+## 11. Mandatory AI Research Specification artifact
+
+For each technical project, generate a separate `output/ai-research-specification.md` in addition to the expert-facing Technology Description. It is a model/agent/tool-agnostic task specification for deep virtual R&D, not an implementation architecture.
+
+The specification must: define multiple candidate approaches, research questions, realistic use conditions and scenarios, constraints, evidence provenance, modelling and uncertainty requirements, comparison criteria, validation plan, stopping criteria, and required deliverables. The executor may select appropriate tools and models and must report their suitability and limitations. Distinguish virtual predictions from physical measurements; never fabricate experiments or imply simulations certify safety or performance.
+
+Generate it from the project's inputs, current requirements, research (including patent/competitor landscape), and current technology description. Save intermediate research separately. Verify consistency with global and project requirements.
