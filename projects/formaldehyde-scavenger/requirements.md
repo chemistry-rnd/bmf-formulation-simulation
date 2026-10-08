@@ -19,3 +19,11 @@
 - Do not present one arbitrary recipe as the entire search strategy.
 - Explain generation/comparison of multiple admissible formulation variants.
 - Explicitly analyze component ratios, concentration windows and synergistic/antagonistic interactions.
+
+
+## Technology card and patent appendix (project-specific)
+- Describe the proposed treatment as a concrete set of functional material components and human application operations, not only an abstract discovery pipeline.
+- Include a compact technological/process card table with operation, material/functional component, operator action, process control and expected intermediate result.
+- Keep this card in the substantive technology/process section, not as a redundant conclusion.
+- Refer to **Приложение № 7 — Проект патентной заявки: состав и способ обработки открытых срезов древесных плит** for detailed formulation variants, chemical identities, quantitative composition ranges, process conditions and claims.
+- The appendix is a separate future document; do not assert it has already been drafted, filed or patented. The main description may reference it as the designated specification location.
