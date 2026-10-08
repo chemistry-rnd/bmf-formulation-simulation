@@ -86,3 +86,34 @@ Before returning the document:
 6. check that standards/patents/competitors are real and relevant;
 7. check that no internal TODO/status language leaked into the main document;
 8. check that no unsupported factual result was invented.
+
+
+## 9. Mandatory market comparison tables
+
+Every expert-facing Technology Description must contain **two distinct, well-designed tables**:
+
+1. **Comparison with market analogues** — factual comparison of real, identified market offerings or technologies.
+2. **Advantages of the proposed technology over analogues** — a clear synthesis of meaningful differentiators, their practical consequences and evidence/measurement basis.
+
+These tables are mandatory across projects; project-specific requirements may adapt the comparison criteria, but must not silently omit either table.
+
+### Table A — market analogues
+- Identify actual product/technology, company or developer, country, and a working source link.
+- Compare against the proposed technology using only relevant, comparable dimensions.
+- Make it explicit whether an entry is a commercial product, patent, publication or research prototype; do not pass off scientific papers as market products.
+- Use evidence-backed characteristics and consistent units. Mark unverified comparisons in the research notes; do not invent specifications.
+- Prefer a layout with **rows = products/analogues** and **columns = a small number of concise criteria**. If many criteria exist, split by theme instead of creating a very wide table.
+
+### Table B — advantages over analogues
+- Each row should express one distinct advantage: comparison dimension, what the proposed technology does differently, what the analogue does, practical user benefit, and verification/evidence.
+- Avoid generic claims such as “more innovative”, “better”, “more efficient” without measurable or technically meaningful explanation.
+- Keep cells short, headings compact and comprehensible, and comparisons grounded in source evidence or explicitly identified design characteristics.
+- Do not claim experimentally proven superiority without measurements.
+
+### Two-pass table quality workflow
+
+**Pass 1 — substantive comparison:** gather and verify analogues, countries, source URLs, relevant parameters, and differentiation.
+
+**Pass 2 — readability review:** inspect both tables as rendered Markdown, shorten column headers, trim dense cells, balance vertical/horizontal layout, split overloaded tables, ensure links are usable, and confirm they remain understandable without surrounding paragraphs.
+
+Acceptance: both tables present, readable on a normal document width, no oversized text columns, no invented companies/countries/links/results, and clear practical advantages.
