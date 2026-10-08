@@ -14,3 +14,8 @@ Append-only log. Current accepted state is `requirements.md`.
 - Review world and Russian patents separately where useful; select a small set of the most relevant examples with concise explanations.
 - Competitors should be researched when missing from inputs.
 - The final document must include a testing/validation protocol corresponding to the technology.
+
+## R003 — Concrete technology card and patent draft appendix
+- Add materials/functions and installer operations as a technological card inside the main description.
+- Reserve Appendix No. 7 for a separate draft patent application with exact chemistry, variants, parameters and proposed claims.
+- Avoid suggesting a patent filing or completed appendix already exists.
