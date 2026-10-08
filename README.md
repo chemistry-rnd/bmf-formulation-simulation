@@ -12,7 +12,7 @@ projects/
     input/                     everything supplied by the client/project owner
     requirements.md            current project-specific requirements
     requirements-log.md        append-only requirement/decision history
-    research/                  evidence gathered during generation
+    output/research/           LLM-produced intermediate research and evidence
       competitors.md
       patents.md
       standards.md
