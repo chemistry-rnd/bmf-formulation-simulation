@@ -133,3 +133,8 @@ For each technical project, generate a separate `output/ai-research-specificatio
 The specification must: define multiple candidate approaches, research questions, realistic use conditions and scenarios, constraints, evidence provenance, modelling and uncertainty requirements, comparison criteria, validation plan, stopping criteria, and required deliverables. The executor may select appropriate tools and models and must report their suitability and limitations. Distinguish virtual predictions from physical measurements; never fabricate experiments or imply simulations certify safety or performance.
 
 Generate it from the project's inputs, current requirements, research (including patent/competitor landscape), and current technology description. Save intermediate research separately. Verify consistency with global and project requirements.
+
+
+## 12. No concluding summary section
+
+Do not append a concluding recap or generic closing section to the expert-facing Technology Description. In particular, omit sections titled “Практический результат технологии”, “Итоги”, “Заключение”, “Выводы”, “Резюме”, “Summary”, “Conclusion”, or equivalent when their function is merely to repeat earlier content. The document ends at its last substantive required section (such as comparison/advantages), without AI-style summary-of-summary. This is a global requirement for all projects. Distinct required documents, such as executive memos or research recommendations, are unaffected.
