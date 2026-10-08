@@ -95,6 +95,9 @@ Check each one against the draft. Fix the document rather than merely reporting 
 
 ## Pass 9 — Evidence QA
 
+Ensure the final document has no standalone Sources/References/Bibliography section. Retain source links inline and the complete ledger under `output/research/sources.md`.
+
+
 Verify:
 - named competitors;
 - standards;
