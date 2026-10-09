@@ -241,3 +241,12 @@ After normal drafting, run a **blind table-only pass** over every competitor-com
 5. If no defensible numerical model exists for a high-stakes metric (e.g. 90-day HCHO emissions), do not fabricate a median: use a scenario explicitly parameterized by an assumed baseline and place the corresponding calculation and sensitivity in analysis. A compliance failure remains a failure rather than a manufactured pass.
 
 The blind step has a strict output contract: **table only, no commentary, no generic unknown placeholders**. It may fail with a structured missing-model flag, which is recorded outside the final table.
+
+
+## 25. Blind competitor-table completion
+
+After generating the final document, run an isolated table-only review. Mark generic cells as invalid, including: “Нет сопоставимого протокола”, “Не опубликовано”, “Зависит от покрытия”, “Требуется отдельная модель”, “Сценарий измеряется отдельно”, “Требуется контроль зоны распыления”. Equivalent evasive process descriptions are also invalid when the row calls for a measurable parameter.
+
+Pass the table with invalid cells blanked to a separate completion step. Its output is only the completed table, with numerical central scenario values and ranges for quantitative metrics and concrete operational descriptions for qualitative metrics. Every estimate must have a stated model, units, assumptions and source category in the internal Promotion Changes record. Never mislabel a scenario value as a measured median for a named product.
+
+Perform independent semantic QA after completion: verify that no placeholder survives in paraphrase, numbers are physically plausible, units and test conditions are comparable, and source status is preserved. A cell without a defensible estimation method cannot be assigned an invented precise value; flag it for further modelling outside the table. Do not declare numeric compliance merely because every cell contains a number.
