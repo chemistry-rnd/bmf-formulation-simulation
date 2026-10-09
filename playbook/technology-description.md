@@ -199,3 +199,12 @@ For each empty/generic cell: search product TDS, then market reference, then nor
 ## Mandatory post-generation compliance repair loop
 
 After **every** generation or revision, reread the full global rules and project requirements and scan the **actual saved Final Result** (not only the draft). For each violation, generate a concrete corrective patch, apply it, reread the saved file, and repeat until all machine-checkable rules pass. This is a required regeneration loop, not a passive QA note. Check headings, table cells, banned placeholders, numeric units, patent neutrality, matrix orientation, appendix references, and absence of redundant conclusions. Never silently replace unavailable product evidence with invented values; instead repair the matrix using defensible method-level scenarios or a different measurable criterion and record the gap in Promotion Changes. Archive only the corrected version and record remaining evidence limitations separately.
+
+
+## Mandatory blind final-table repair
+
+1. Extract the competitor comparison table from the saved Final Result.
+2. Detect and blank generic or evasive cells, including phrases such as “нет сопоставимого протокола”, “зависит от покрытия”, “требуется отдельная модель”, and “контроль зоны распыления”.
+3. Run an isolated table-only completion pass using product data, market benchmarks, and reproducible class-level models. Return only the replacement table.
+4. Record assumptions, ranges and evidence tier in Promotion Changes.
+5. Reopen the saved Final Result and independently validate each cell for semantic specificity, consistent units and truthful source status. Repeat repair if necessary.
