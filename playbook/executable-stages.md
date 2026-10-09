@@ -152,3 +152,8 @@ A failed check does **not** restart the entire workflow. Each stage has immutabl
 ### Cache invalidation
 
 Use a dependency graph at artifact/section granularity, not just numeric stage order. Cache key = source commit + input artifact hashes + relevant rule IDs/versions + prompt version + model/config. Changing a comparison row must not invalidate unrelated patents or Skolkovo research. The controller emits `restart-plan.json` listing failed checks, restart nodes, invalidated artifacts, reused artifacts and estimated incremental cost before execution.
+
+
+### Q14 — Prompt leakage / solution-only document
+
+At stage 08 and final stage 14, perform semantic QA: final text must describe the implemented technical design, materials, operations and verifiable properties, not restate the user assignment, editorial instructions, or generation constraints. Return exact offending spans and local replacements. Recheck saved final artifact after repair.
