@@ -1,5 +1,19 @@
 # Executable playbook v1 — low-cost staged generation
 
+## Run modes — create and revise
+
+There is **one pipeline with two entry modes**, not two independent playbooks.
+
+| Mode | Input | Entry stages | Execution scope | Output |
+|---|---|---|---|---|
+| `create` | Project brief, input files, active requirements | 00 intake → normal DAG | All required stages | New run artifact package |
+| `revise` | Existing result package or run reference, reviewed document and/or explicit change request | Review diff → requirements reconciliation → dependency restart planner | Only affected stages and descendants | Updated run artifact package + change report |
+
+Both modes use the same global/project rules, validation gates and artifact schema. A revise run must resolve its exact base version/hash, retain previously accepted requirements, and never silently supersede them. Reviewer diffs are proposals until reconciled; explicit user instruction is required to reverse an active decision.
+
+`revise` reuses unaffected research and calculations from the referenced run where artifacts are available and hashes match. If the prior Actions artifact has expired, request or retrieve an explicitly persisted baseline; do not guess it. Both modes publish generated outputs as Actions artifacts, not source commits. Accepted requirements/history remain in Git.
+
+
 Status: implementation contract for future GitHub Actions + OpenCode runner. The manual workflow remains authoritative until stage CI is implemented.
 
 ## Principles
