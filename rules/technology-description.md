@@ -182,3 +182,8 @@ Prefer “Состав содержит 7% карбамида”, “Нанес�
 This is a **design-for-falsification document**, not a laboratory evidence report. The numbers and mechanisms are concrete design assertions to be tested. Evidence status, actual measurements and failed tests live separately in internal research and experiment records. The main document must not falsely attribute a test to a named laboratory, claim a certificate exists or misquote external results; otherwise its role is to be direct and testable.
 
 The same style gate applies to every section, table heading, parameter cell and process step. Final QA asks: “Can an engineer take this exact statement and try to disprove it with a measurable test?” If not, rewrite it.
+
+
+## 19. Neutral patent landscape (all projects)
+
+The patent section is a factual catalogue, **not a competitive argument**. Include at least one verified Russian patent and preferably three verified international patents when relevant examples exist. For each: jurisdiction, exact publication identifier, linked patent record, title, and 1–2 concise sentences explaining the claimed technical subject or method. No commentary that a patent is “similar”, “different”, “inferior”, “better”, “not identical”, or how our technology compares. No self-promotion or patentability conclusions. Separate Russian and international subsections. If the requested number of relevant patents cannot be verified, record the gap internally instead of inventing entries.
