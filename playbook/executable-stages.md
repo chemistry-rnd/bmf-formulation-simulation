@@ -84,3 +84,42 @@ Repository state consists of inputs, rules, playbooks and accepted requirements 
 GitHub Actions artifact retention is finite, not durable. Set explicit retention and expose expiry. An accepted result can be saved long-term only through a separate explicit promotion flow (Release, object storage, or user-chosen destination), never automatically on each run.
 
 Replace stage 16 PR publication with artifact packaging and upload. Remove PR creation from default acceptance tests; instead assert no source-branch mutations and verify artifact manifest and checksum integrity.
+
+
+## Mandatory QA gates by stage (cheap-model resilient)
+
+Each gate emits a machine-readable `check_id`, PASS/FAIL, location, evidence, suggested repair and severity. Deterministic checks run first. LLM semantic review is only for judgments that code cannot make. Failed sections are repaired in isolation and rechecked. Never count a rewritten placeholder as a successful numerical cell.
+
+| Gate | Stage | Type | Requirement | Failure action |
+|---|---|---|---|---|
+| Q01 | 01 | Deterministic | Explicit Skolkovo cluster + direction/code at top; official source in research ledger | Research/rewrite classification |
+| Q02 | 03/09 | Deterministic + source check | At least 1 verified Russian and preferably 3 verified international patent records; IDs, URLs, descriptions; neutral wording | Targeted patent search |
+| Q03 | 09/13 | Deterministic | Comparison is vertical: rows are parameters, columns are named products/technology; numeric units per metric | Transpose/regenerate table |
+| Q04 | 09/11 | Deterministic | At least 51% numeric scenario cells filled per competitor and overall; count denominators, reject nonnumeric placeholders | Research/model missing cells |
+| Q05 | 09/11 | Deterministic + evidence | Separate verified competitor numeric coverage from modelled scenario coverage; provenance for every number | Reject unsupported cells |
+| Q06 | 11/14 | Semantic LLM | Advantages are specific, buyer-relevant, falsifiable; no invented competitor weakness or cherry-picked misleading comparison | Repair only comparison |
+| Q07 | 06/07 | Deterministic | Mixture fractions sum to 100%, units consistent, mass/area/time conversions reproducible | Recompute |
+| Q08 | 07/11 | Statistical / simulation | Scenario ranges plausible, assumptions declared, sensitivity/boundary tests; no unjustified narrow median | Refit or widen/flag |
+| Q09 | 08/14 | Deterministic + semantic | Named components, concrete process steps, temperatures, dose, acceptance values, and falsification criteria | Targeted specificity rewrite |
+| Q10 | 13/14 | Deterministic | No TBD, provisional wording, duplicate sources/conclusion sections, redundant process tables or blank cells disguised as prose | Remove/rewrite |
+| Q11 | 12/14 | Semantic LLM | AI Research Spec has multiple variants, objective metrics, validation tasks, uncertainty and no hardcoded agent/model | Repair research spec |
+| Q12 | 14/15 | Deterministic | Every active global/project requirement has a traceable location or explicit applicability decision | Block and repair |
+| Q13 | 16 | Deterministic | Final package contains all required files, manifest, hashes and QA; no branch mutation; no secrets | Block artifact publication |
+
+### Numeric and competitive advantage scoring
+
+Define `scenario_numeric_coverage = valid_modelled_or_verified_numeric_cells / applicable_numeric_cells`. Require ≥0.51 per competitor and overall. Separately report `verified_numeric_coverage`; it is not interchangeable with scenario coverage. Each scenario cell must link to its method/assumption ID in the internal ledger. Count a value only when its metric, unit and comparator are applicable.
+
+Define `advantage_rate = number_of_comparable_metrics_where_our_value_is_better / number_of_comparable_metrics_with_direction_defined`. Report it as a **design/scenario** result when based on modelling. Target >0.50 for the selected customer-relevant metrics, but do not change baselines, omit material disadvantages, or fabricate observations to force a pass. If the target fails, launch advantage discovery or target-engineering iteration; never silently publish a misleading win.
+
+### Statistical checks
+
+For actual repeated experiments: check sample size, paired/control design, confidence intervals, variability and appropriate effect-size comparisons. Do not run significance tests on made-up scenario numbers or claim p-values for deterministic calculations. For simulations: parameter sweeps, sensitivity, boundary conditions, uncertainty propagation and rank-reversal tests. A scenario advantage must show conditions under which it disappears.
+
+### Low-cost LLM semantic QA contract
+
+Supply only: check ID, rule excerpt, relevant document section, short evidence ledger excerpt and exact output schema. Require `{check_id, verdict, location, reason, patch}`. A second cheap-model reviewer may verify ambiguous cases; deterministic gates remain authoritative for arithmetic/structure. Retry only failed sections (max 2), then BLOCKED with diagnostics. Never give the cheap model the entire 26k-character rules document if only one rule is relevant.
+
+### Regression fixtures based on past failures
+
+Tests must catch: missing patent countries; missing Skolkovo classification; two horizontal tables instead of one vertical matrix; 0/15 competitor coverage; replacing “нет сопоставимого протокола” with “требуется отдельная модель”; unsupported medians; invented competitor values; unbalanced mixture percentages; “Предлагаемая спецификация” in table header; duplicate patent section; generic final summary; standalone Sources; version gaps; incorrect artifact packaging; rule changes not reflected in saved output. Each regression fixture includes a bad input and expected failing check ID.
