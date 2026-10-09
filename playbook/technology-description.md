@@ -158,3 +158,8 @@ At the start and end of every run, enforce the engineering falsification brief i
 ## Patent neutrality QA
 
 Require one verified Russian and preferably three verified foreign patents, each with identifier, link and short technical description. Remove comparison, praise, superiority, patentability and differentiator commentary from the patent section. Keep comparisons in the market matrix only.
+
+
+## Competitor matrix completeness and persuasion gate
+
+For every competitor column calculate the share of applicable unknown/generic cells; require <=50%. Deepen research or replace poorly documented analogues. Include customer-relevant quantitative comparisons and meaningful advantages, with estimates supported by assumptions in internal research. Reject invented reviews, misleading cherry-picking and unsupported superiority claims. Verify matrix is compelling, readable and technically fair.
