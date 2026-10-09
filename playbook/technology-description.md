@@ -184,3 +184,8 @@ Record both hypotheses, evidence, assumptions, outcomes, and next experiments in
 ## Research target engineering pass
 
 Before drafting AI Research Specification, create/update `output/analysis/research-target-engineering.md`: baseline, improvement potential, quantified target, mechanism, research questions and falsification test for each important metric. Apply improvement factors in the correct direction and check physical feasibility. Feed these targets into AI Research Specification. Preserve separate status of modelled targets versus measured results.
+
+
+## Competitive Advantage Discovery pass (before Research Target Engineering)
+
+Read market competitors and patent/technical context; identify opportunities where the product can plausibly outperform. For each: specific metric and unit, competitor evidence, mechanism, potential improvement range, confidence, research effort and falsification test. Rank and select a small set of leverage metrics. Write `output/analysis/competitive-advantage-discovery.md`. Then assign individualized numeric targets in `research-target-engineering.md`, not a universal improvement percentage. Record rejected directions and why.
