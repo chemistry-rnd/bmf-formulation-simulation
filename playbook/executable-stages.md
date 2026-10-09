@@ -157,3 +157,36 @@ Use a dependency graph at artifact/section granularity, not just numeric stage o
 ### Q14 — Prompt leakage / solution-only document
 
 At stage 08 and final stage 14, perform semantic QA: final text must describe the implemented technical design, materials, operations and verifiable properties, not restate the user assignment, editorial instructions, or generation constraints. Return exact offending spans and local replacements. Recheck saved final artifact after repair.
+
+
+## Reviewer document import — requirement diff/merge (mandatory)
+
+When a user uploads a reviewed version of a generated document, **do not overwrite the accepted Final Result directly**. Treat the upload as a reviewer candidate and run a separate requirement reconciliation workflow before regeneration.
+
+### Workflow
+1. Resolve the base version from explicit metadata or document ID; verify the current accepted version/hash. If ambiguous, stop rather than guessing a diff base.
+2. Parse both Markdown documents into section IDs, headings, paragraphs, lists and table cells. Normalize whitespace and formatting separately from semantic content. Align sections by stable IDs/meaning, not only section number.
+3. Produce a structured diff with old/new text, section locator, change type (`technical_value`, `terminology`, `structure`, `comparison`, `style`, `cosmetic`, `possible_error`) and source file/hash.
+4. For each meaningful edit, propose one atomic project requirement with stable `REV-<version>-NN` ID, exact scope, positive/negative examples, and an acceptance check. Cosmetic changes need not become permanent requirements unless the reviewer explicitly requests a formatting convention.
+5. Reconcile against **all active global/project requirements and earlier reviewer decisions**. Mark `accepted`, `conflict_needs_approval`, `duplicate`, `cosmetic` or `rejected_error`. A later uploaded file does **not** implicitly cancel a prior user decision.
+6. Append every decision to `projects/<slug>/requirements-log.md`; update `requirements.md` with accepted active rules only. Record explicit `supersedes` links for reversals. Never delete old history.
+7. Generate a review report with each edit, decision, conflict, evidence/provenance and affected sections. Ask the user only about genuine contradictions that cannot be resolved from explicit instructions.
+8. Recompute affected downstream stages by dependency graph; retain unaffected research and calculations. Apply accepted changes to a new candidate, then run global/project QA and check that all accepted reviewer changes are represented.
+9. Save the accepted requirement ledger in Git; generated review report and Final Result are run artifacts by default.
+
+### Immutable requirement status
+
+Each requirement has `id`, `scope`, `source`, `introduced_at`, `status`, `supersedes`, `acceptance_check`. Allowed states: `active`, `superseded_explicitly`, `pending_conflict`, `rejected`. Only an explicit user instruction can transition `active` to `superseded_explicitly`. A reviewer edit may propose the transition but cannot apply it silently.
+
+### Cheap-LLM division
+
+Deterministic code: Markdown parsing, text/table diff, IDs, hashes, duplicate heading detection, history append, requirement coverage checks. Bounded LLM calls: interpret one changed section or table-row group, classify semantic intent, draft atomic requirements, identify possible conflicts. Another bounded QA call checks only disputed items. Never give the full repository and all historical revisions to one low-cost model.
+
+### Regression cases
+
+- Reviewer reintroduces a previously removed heading: flag conflict, do not silently reinstate.
+- Reviewer duplicates section number: formatting error, not a new requirement.
+- Reviewer changes a numeric competitor estimate: capture value and evidence tier, do not relabel scenario as measured fact.
+- Reviewer changes only Markdown spacing: cosmetic, no permanent requirement.
+- Reviewer reverses a rule with explicit user approval: append `supersedes` and regenerate affected sections.
+- Two reviewer versions share a base but diverge: detect merge conflict, preserve both, do not last-write-wins.
