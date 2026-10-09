@@ -168,3 +168,14 @@ For every competitor column calculate the share of applicable unknown/generic ce
 ## Promotion pass and numeric coverage audit
 
 After drafting the factual technology description, create `output/final-result/promotion-changes.md` documenting each promotional comparison change, numeric evidence tier, assumptions, source and falsification test. Count applicable competitor numeric cells: require >=51% filled per competitor and overall; nonnumeric labels and unsupported guesses do not count. If below threshold, mark compliance FAIL, explain gaps and propose research. Save versioned copies of both documents.
+
+
+## Promotion recovery loop after failed compliance
+
+If the competitor quantitative-coverage gate fails, the next iteration must start from a **numeric deficit report**: filled/total numeric cells, missing cells by competitor, and exact number of additional valid cells needed to exceed 51% both per competitor and overall. Then rank missing cells by business relevance, plausibility of our advantage, evidence availability and cost of falsification.
+
+Test two distinct hypotheses in sequence:
+1. **Existing-metric hypothesis:** on a metric already in the matrix, find a defensible reason a named competitor may perform worse (for example an operational limitation inherent to its application method). Research evidence, quantify where possible, and define a fair comparative test. Record estimated or inferred status, never manufacture a measured competitor number.
+2. **New-metric hypothesis:** identify a meaningful, measurable metric on which our technology could plausibly outperform alternatives; define units, expected mechanism, comparable measurement protocol and falsification threshold. Add it only if relevant and fair, not merely to inflate coverage.
+
+Record both hypotheses, evidence, assumptions, outcomes, and next experiments in `output/final-result/promotion-changes.md`. If neither produces a defensible numeric comparison, leave the compliance status FAIL and iterate again. Promotion Changes is also a marketing-metric discovery artifact: rank metrics to test and later communicate, without disguising assumptions as observations.
