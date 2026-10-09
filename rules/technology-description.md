@@ -171,3 +171,14 @@ The expert-facing Final Result is written as a concrete technical embodiment in 
 **Evidence integrity remains mandatory:** do not invent completed tests, measured outcomes, certifications or comparative performance. Keep the provenance and verification status of each unmeasured numeric design specification in the internal research/QA ledger. Declarative design specifications are allowed; fabricated measured results are not.
 
 This gate is applied both **before drafting** (system-level generation contract) and **after drafting** (scan headings, tables, body and footnotes; rewrite or block offending passages). The QA pass must also reject invented evidence and misleading claims of completed validation.
+
+
+## 18. Engineering falsification brief — writing philosophy
+
+The intended reader is an engineer or experimentalist who knows the document is a theoretical technical design. The purpose is to give them a **concrete configuration to challenge and falsify**, not to hedge every sentence. Write in assertive present tense and make claims precise enough that the engineer can immediately construct a test, discover a failure and improve the technology.
+
+Prefer “Состав содержит 7% карбамида”, “Нанесение выполняется одним проходом при расходе 30–60 г/м²”, “Время готовности — 15 минут” to “предположительно”, “возможный вариант”, “предлагаемая спецификация” or generic functions. No apology, disclaimers or epistemic qualifiers in the main text. Do not replace specificity with vague confidence statements.
+
+This is a **design-for-falsification document**, not a laboratory evidence report. The numbers and mechanisms are concrete design assertions to be tested. Evidence status, actual measurements and failed tests live separately in internal research and experiment records. The main document must not falsely attribute a test to a named laboratory, claim a certificate exists or misquote external results; otherwise its role is to be direct and testable.
+
+The same style gate applies to every section, table heading, parameter cell and process step. Final QA asks: “Can an engineer take this exact statement and try to disprove it with a measurable test?” If not, rewrite it.
