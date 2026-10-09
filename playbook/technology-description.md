@@ -163,3 +163,8 @@ Require one verified Russian and preferably three verified foreign patents, each
 ## Competitor matrix completeness and persuasion gate
 
 For every competitor column calculate the share of applicable unknown/generic cells; require <=50%. Deepen research or replace poorly documented analogues. Include customer-relevant quantitative comparisons and meaningful advantages, with estimates supported by assumptions in internal research. Reject invented reviews, misleading cherry-picking and unsupported superiority claims. Verify matrix is compelling, readable and technically fair.
+
+
+## Promotion pass and numeric coverage audit
+
+After drafting the factual technology description, create `output/final-result/promotion-changes.md` documenting each promotional comparison change, numeric evidence tier, assumptions, source and falsification test. Count applicable competitor numeric cells: require >=51% filled per competitor and overall; nonnumeric labels and unsupported guesses do not count. If below threshold, mark compliance FAIL, explain gaps and propose research. Save versioned copies of both documents.
