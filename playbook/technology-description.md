@@ -141,3 +141,10 @@ Convert vague functions into concrete candidate embodiments and numeric **design
 ## Pass 7b — Vertical competitor matrix
 
 Generate one primary comparison matrix: rows are detailed parameters, columns are our technology and a small number of named analogues. Link only the analogue's official site/technology in the heading; put patent links in the patent section. Avoid separate generic advantages table; articulate advantages adjacent to the matrix. Review for numeric comparability, unit consistency and narrow-column readability.
+
+
+## Mandatory start/end language gate
+
+**Before drafting:** activate the global declarative Final Result mode: concrete present-tense engineering specification, no “гипотеза/ожидается/планируется/проектное значение” labels in the reader-facing output. Maintain separate internal evidence status for design parameters.
+
+**After drafting:** scan the entire final document (including headings, tables and notes) for provisional wording and rewrite it into concrete specification language. Independently check that no unperformed experiment or unsupported measured outcome is represented as a fact. If the latter cannot be corrected truthfully, block publication and record the issue in review notes.
