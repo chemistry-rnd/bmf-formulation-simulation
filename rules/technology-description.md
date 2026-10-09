@@ -198,3 +198,14 @@ The vertical competitor matrix is a startup/expert-engagement artifact: it must 
 Where primary data is unavailable, a defensible calculation or explicit estimate may be used, with assumptions and provenance in `output/research/`. Do not present guessed competitor performance as verified fact, invent negative reviews, cherry-pick misleading baselines, or guarantee superiority. Use clear, concise cells in the final table; preserve detailed evidence in research files. Select useful differentiators where the proposed technology genuinely has a design advantage, while retaining material trade-offs and disadvantages. Aim for a compelling **fair** comparison, not a fabricated win.
 
 Final QA: check completeness percentage per competitor, metric comparability, sources/assumptions, numeric units, relevance to the buyer, and whether every claimed advantage is defensible and falsifiable.
+
+
+## 21. Two-document final compliance package
+
+Every final iteration produces exactly two companion documents under `output/final-result/`:
+- `current.md`: substantive expert-facing technology description, with vertical comparison matrix and concrete falsifiable parameters.
+- `promotion-changes.md`: transparent promotional/comparison revision record, stating which matrix cells changed, evidence level (measured / manufacturer-stated / calculated / estimated), numerical assumptions, source provenance, confidence and test needed to disprove the estimate.
+
+**Numeric coverage gate:** at least 51% of applicable competitor numeric cells must contain actual numerical values, with units and a meaningful comparison basis. A non-numeric description does not count. Do not count our own column toward competitor coverage. Calculate both overall coverage and per-competitor coverage; both must reach 51%. Unsupported invented values do not count. If this is impossible after research, record failure in `promotion-changes.md` and do not falsely label the pair compliant. Improve research, choose better-documented competitors, or use defensible calculations with stated assumptions. Preserve meaningful comparison metrics, including unfavorable ones.
+
+The pair forms the review/compliance package. The promotional document is allowed to discuss estimates and uncertainty; the main document remains a concise engineering specification. Keep versioned snapshots of both.
