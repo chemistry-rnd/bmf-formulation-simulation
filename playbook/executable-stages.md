@@ -73,3 +73,14 @@ SELF-CHECK: validate required keys, units, evidence tier and all input IDs.
 6. Two projects execute without shared mutable state or data leakage.
 7. Run report includes per-stage token cost, time, number of web calls, QA failures and total cost.
 8. Final result is never published if hard semantic/evidence gates fail.
+
+
+## Output delivery decision — Actions artifact first
+
+Normal generation produces **no repository write, branch, commit or PR**. All generated research, analyses, Final Result, Promotion Changes, AI Research Specification, QA reports and manifests are stored in run-scoped GitHub Actions artifacts. Stage jobs pass artifacts by unique run/stage identifiers and verify hashes. The final packaging stage publishes one downloadable artifact only after all mandatory QA gates pass; failed runs publish diagnostics separately.
+
+Repository state consists of inputs, rules, playbooks and accepted requirements only. Legacy checked-in outputs are historical fixtures and are not the default persistence mechanism.
+
+GitHub Actions artifact retention is finite, not durable. Set explicit retention and expose expiry. An accepted result can be saved long-term only through a separate explicit promotion flow (Release, object storage, or user-chosen destination), never automatically on each run.
+
+Replace stage 16 PR publication with artifact packaging and upload. Remove PR creation from default acceptance tests; instead assert no source-branch mutations and verify artifact manifest and checksum integrity.
