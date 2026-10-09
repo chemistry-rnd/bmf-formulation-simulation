@@ -81,3 +81,17 @@ Do not compare a proposed 70% reduction against the 0.062 mg/m³ concentration w
 3. Derived scenario: mathematical conversion with assumptions and uncertainty.
 
 Never relabel (2) or (3) as a measured property of another named competitor. For quantitative coverage, only count cells where the compared quantity, units, substrate and test endpoint are sufficiently aligned.
+
+
+## Iteration 003 — two complementary numerical strategies
+
+**Strategy A: representative published market products.** Tikkurila Everal Aqua Matt (waterborne furniture/chipboard enamel): 9.8–14 m²/L, dust-dry 60 min, recoat 240 min, base density 1.04–1.30 kg/L. Optiva Colour (interior wall paint, less direct): 8.4–12 m²/L, dry ~60 min, recoat 240 min. BASF Loxanol MI 6311 ingredient: ~75% active content, density ~1.31 g/cm³, pH ~10. These are product-specific numbers, but they describe different endpoints; never silently transfer them to Speco or Asta.
+
+**Strategy B: common-geometry model.** For L=1 m, h=0.016 m, area=0.016 m². Our wet applied mass=36×0.016=0.576 g. Everal Aqua Matt's published flat-surface coverage translates to 0.0714–0.1020 L/m²; at 1.04–1.30 kg/L, the implied mass range is ~74.3–132.7 g/m², or ~1.19–2.12 g/m of 16-mm edge **if flat-surface coverage transfers**. Optiva Colour corresponds to ~1.33–1.90 mL/m edge, but mass is not computable without verified density. For Everal, our mass is ~2.1–3.7× lower than that modeled flat-surface paint loading. This is a **scenario comparison**, not evidence of equivalent HCHO suppression or edge coverage.
+
+Published references:
+- https://tikkurila.com/pro/products/everal-aqua-matt
+- https://tikkurila.com/pro/products/optiva-colour
+- https://download.basf.com/p1/8a8081e18721a79301872315dfa20b42/en/Loxanol_MI_6311_TDS_30756558_EN_Technical_Data_Sheet_English.pdf?view=
+
+**Coverage audit:** two independent published quantitative Everal metrics (coverage, drying) and one derived edge mass metric can be compared to our engineering targets under explicit caveats. The derived mass shares the same coverage input, so it is not independent evidence. These do not establish 51% coverage for the original three named competitors. Maintain separate scoring for (1) original named products and (2) representative market-reference products. Do not inflate the denominator with qualitative entries or reclassify a paint as an HCHO scavenger.
