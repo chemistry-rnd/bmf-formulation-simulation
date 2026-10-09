@@ -34,3 +34,14 @@
 - Describe both preparation/manufacturing and installer application, including equipment, dose in g/m², number of coats, drying conditions and measurable acceptance criteria.
 - Compare our design with named products using one vertical matrix: many metric rows and a few product columns. Put links to official product pages in column headings. Keep patent links in the patent section.
 - Patent application drafting is not required now; Appendix 7 remains a reserved technical appendix.
+
+
+## Reviewer revision v016 — accepted changes and conflicts
+- REV-016-01: In the competitor matrix, show the specific reviewer-supplied values: Speco 20 min, BASF 60 min; Asta described as factory application. Keep the evidence type and units in internal research.
+- REV-016-02: Reviewer table uses HCHO reduction over 90 days: Speco 35%, BASF “Нет данных”, Asta 50%. These are reviewer-provided scenario entries, not verified product measurements; preserve that status in the evidence ledger.
+- REV-016-03: Keep Speco/BASF/Asta swelling ranges 0.10–0.13 / 0.09–0.12 / 0.11–0.14 mm, and dose entries 48–65 / 34–42 g/m², Asta unspecified, as scenario values.
+- REV-016-04: Retain the simplified seven-step installer process; the reviewer inserted the label “Инструкция монтажника”, which conflicts with the earlier explicit instruction to remove checklist labels. **Pending confirmation; do not reactivate the label automatically.**
+- REV-016-05: Reviewer text contains duplicate section number 6; this is a formatting defect, not a new requirement. Keep unique sequential section numbers.
+- REV-016-06: Reviewer version removes scenario/evidence qualifiers from some competitor cells. This is a wording edit, not authorization to present unsupported competitor metrics as verified measurements. Keep the provenance in Promotion Changes.
+
+All previous project-specific decisions remain active unless an explicit user instruction supersedes them. This reviewer import alone does not silently revoke a prior user requirement.
