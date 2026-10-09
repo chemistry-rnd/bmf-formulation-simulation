@@ -228,3 +228,16 @@ The final vertical comparison matrix is populated in the following order: (1) ex
 For modelled cells, use the central scenario and a plausible range only if its bounds are supported by a defined sensitivity model or reference evidence; never invent a narrow statistical median or uncertainty interval. If a competitor product lacks data, label the estimate as a **method/class scenario**, not its verified product property. Do not manufacture measured efficacy, safety, emissions, or certification claims. Maintain all inputs, equations, unit conversions, assumptions, evidence tiers, and uncertainty in `output/analysis/comparative-simulation.md` and `output/final-result/promotion-changes.md`.
 
 The final matrix keeps rows as measurable parameters and columns as products or explicitly identified reference classes. Use consistent units and conditions; do not mix liquid volume and mass without a density conversion. A modelled value may count toward scenario-completeness only if it is meaningful and reproducible; it never counts as verified competitor-measurement coverage. Run two separate QA scores: scenario-completeness and verified comparable-data coverage. Preserve material disadvantages and do not manipulate assumptions merely to meet a target score.
+
+
+## 25. Blind table-cell completion gate
+
+After normal drafting, run a **blind table-only pass** over every competitor-comparison cell. Treat the following as INVALID content, not as an answer: “нет сопоставимого протокола”, “не опубликовано”, “зависит от покрытия/рецептуры”, “требуется отдельная модель”, “сценарий измеряется отдельно”, “требуется контроль зоны распыления”, “производственная стадия”, “не относится к монтажу”, and equivalent vague/process-only text when the row requests a measurable value.
+
+1. Scan all rows; mark each invalid cell as missing and pass the table, row name, units, product/class and allowed evidence context to a **separate blind completion step**.
+2. The completion step returns **only a replacement table**: numeric central estimates and reasonable sensitivity ranges for numeric metrics, and concrete operational values for categorical metrics. Use a disclosed generic method/class model when no product measurements exist; never invent a product-specific measured median.
+3. All inferred values receive provenance and assumption records in Promotion Changes; the final table must distinguish modelled class scenarios from actual product specifications.
+4. Rerun a semantic QA after filling: reject placeholders disguised as prose, unsupported precision, incompatible units and any claim that a modelled estimate is measured product performance.
+5. If no defensible numerical model exists for a high-stakes metric (e.g. 90-day HCHO emissions), do not fabricate a median: use a scenario explicitly parameterized by an assumed baseline and place the corresponding calculation and sensitivity in analysis. A compliance failure remains a failure rather than a manufactured pass.
+
+The blind step has a strict output contract: **table only, no commentary, no generic unknown placeholders**. It may fail with a structured missing-model flag, which is recorded outside the final table.
