@@ -131,3 +131,25 @@ Three scenario types are required for future comparison: central, favorable to u
 - Quantitatively comparable competitor end-use cells remain 0/15 for the five core metrics; required minimum 9/15.
 - **Compliance: FAIL (0%).** No fabricated numerical bounds or cherry-picked estimates were inserted.
 - Next falsification priority: head-to-head application to 16-mm cuts, gravimetric mass balance, operator time and 90-day emission tests. Report all outcomes, including reversals where competitors outperform.
+
+
+## Iteration 009 — combined market references + calculation
+
+Two methods applied together:
+
+1. Published market references: Tikkurila Everal Aqua Matt (9.8–14 m²/L, 60 min dust dry, 240 min recoat, density 1.04–1.30 kg/L), Optiva Colour (8.4–12 m²/L, 60 min dry, 240 min recoat); BASF Loxanol MI 6311 (75% active, 1.31 g/cm³, pH 10).
+2. Geometry conversion to 16-mm cut: our design 0.576 g/m; Everal implied flat-surface loading 1.19–2.12 g/m. Different functional outcomes and substrates: this is a scenario comparison, not equivalent efficacy.
+
+### Transparent scorecard
+
+| Score definition | Filled | Eligible | Score |
+|---|---:|---:|---:|
+| Original competitors (Speco/BASF/Asta), same five end-use numeric metrics | 0 | 15 | 0% — FAIL |
+| Market-reference comparison (Everal, three metrics: loading, dry time, recoat time) | 3 | 3 | 100% reference availability; **not product-equivalence compliance** |
+| Independent input measurements supporting the three Everal rows | 2 | 2 | 100% (coverage and drying schedule; mass is derived) |
+
+No numeric properties of Everal are attributed to Speco, BASF or Asta. The market-reference scenario makes a useful falsifiable pitch: lower mass per narrow edge and shorter process-ready time **if** both coatings satisfy the same coverage/HCHO requirement. That condition is not established.
+
+### Next high-value verification
+
+Use equal edge-coverage and HCHO-suppression endpoints, same board, RH and temperature. Measure g/m, process-ready time, swelling and emission AUC. If a conventional enamel fails the HCHO endpoint, report it as a different product category rather than claiming quantified scavenger superiority.
