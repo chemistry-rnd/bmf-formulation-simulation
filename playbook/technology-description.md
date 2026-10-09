@@ -148,3 +148,8 @@ Generate one primary comparison matrix: rows are detailed parameters, columns ar
 **Before drafting:** activate the global declarative Final Result mode: concrete present-tense engineering specification, no “гипотеза/ожидается/планируется/проектное значение” labels in the reader-facing output. Maintain separate internal evidence status for design parameters.
 
 **After drafting:** scan the entire final document (including headings, tables and notes) for provisional wording and rewrite it into concrete specification language. Independently check that no unperformed experiment or unsupported measured outcome is represented as a fact. If the latter cannot be corrected truthfully, block publication and record the issue in review notes.
+
+
+## Design-for-falsification review
+
+At the start and end of every run, enforce the engineering falsification brief in global rules. Replace abstract or hedged statements with specific materials, quantities, process conditions, tolerances and failure criteria. The final document is a testable engineering design, not a status or evidence report; keep actual experiment records separate.
