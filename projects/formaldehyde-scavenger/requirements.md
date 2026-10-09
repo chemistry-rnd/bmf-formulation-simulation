@@ -27,3 +27,10 @@
 - Keep this card in the substantive technology/process section, not as a redundant conclusion.
 - Refer to **Приложение № 7 — Проект патентной заявки: состав и способ обработки открытых срезов древесных плит** for detailed formulation variants, chemical identities, quantitative composition ranges, process conditions and claims.
 - The appendix is a separate future document; do not assert it has already been drafted, filed or patented. The main description may reference it as the designated specification location.
+
+
+## R004 — Quantitative technology embodiment
+- Specify named candidate chemical ingredients and formulation ranges with a complete mass balance. Treat these as proposed engineering parameters, not proven results.
+- Describe both preparation/manufacturing and installer application, including equipment, dose in g/m², number of coats, drying conditions and measurable acceptance criteria.
+- Compare our design with named products using one vertical matrix: many metric rows and a few product columns. Put links to official product pages in column headings. Keep patent links in the patent section.
+- Patent application drafting is not required now; Appendix 7 remains a reserved technical appendix.
