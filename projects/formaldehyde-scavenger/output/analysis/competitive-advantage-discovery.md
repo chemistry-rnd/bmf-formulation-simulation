@@ -38,3 +38,15 @@
 - Не использовать упаковку, pH ингредиента или содержание активного вещества как подмену сопоставимой эффективности обработки свежего среза.
 - Не считать сценарные цели измеренными характеристиками конкурентов.
 - Не выдавать неизвестные свойства конкретного продукта за его недостаток.
+
+
+## Iterations 2–4 — scenario and differentiation research
+
+### Iteration 2: three-scenario comparison
+For each metric compare (a) central assumptions, (b) our favorable and competitor unfavorable bounds, and (c) our unfavorable and competitor favorable bounds. Bounds must originate from a disclosed measurement, datasheet or explicitly scenario-defined assumption. Do not label scenario bounds as measured product properties. Report where rankings reverse.
+
+### Iteration 3: qualitative functional differentiation
+Check the following as product-design features: contact application to a fresh 16-mm cut; direct dose control in g/m²; one-pass workflow; visible-surface spill control; integrated 90-day emission protocol. A feature absent from competitor literature is **not** proof that the competitor lacks it. Record "not documented" rather than "does not exist".
+
+### Iteration 4: high-leverage decision
+Prioritize coverage efficiency, installation cycle time and long-term HCHO reduction as distinct advantages. Choose a metric only when a clear experimental protocol can discriminate outcomes. A percentage improvement is not mandatory for qualitative functional features. Reject any metric that cannot be compared fairly or falsified.
