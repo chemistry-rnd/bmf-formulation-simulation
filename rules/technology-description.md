@@ -187,3 +187,14 @@ The same style gate applies to every section, table heading, parameter cell and 
 ## 19. Neutral patent landscape (all projects)
 
 The patent section is a factual catalogue, **not a competitive argument**. Include at least one verified Russian patent and preferably three verified international patents when relevant examples exist. For each: jurisdiction, exact publication identifier, linked patent record, title, and 1–2 concise sentences explaining the claimed technical subject or method. No commentary that a patent is “similar”, “different”, “inferior”, “better”, “not identical”, or how our technology compares. No self-promotion or patentability conclusions. Separate Russian and international subsections. If the requested number of relevant patents cannot be verified, record the gap internally instead of inventing entries.
+
+
+## 20. Persuasive, research-rich competitor matrix (all projects)
+
+The vertical competitor matrix is a startup/expert-engagement artifact: it must highlight **real, technically relevant and testable advantages** of the project. Research each named competitor deeply, including manufacturer documentation, prices, use conditions, independent reviews and known limitations. Choose comparison dimensions relevant to the actual customer use case, including cost, application time, consumption, compatibility, performance and operational constraints.
+
+**Completeness gate:** for each competitor, at most 50% of applicable metric cells may be unfilled or contain generic answers such as “not disclosed”, “depends on formulation”, “no comparable data”, or “unknown”. If the threshold fails, research further, replace the competitor with a more documentable relevant one, or reduce to a defensible set of comparable metrics. Do not game the metric by deleting meaningful dimensions or using irrelevant comparisons.
+
+Where primary data is unavailable, a defensible calculation or explicit estimate may be used, with assumptions and provenance in `output/research/`. Do not present guessed competitor performance as verified fact, invent negative reviews, cherry-pick misleading baselines, or guarantee superiority. Use clear, concise cells in the final table; preserve detailed evidence in research files. Select useful differentiators where the proposed technology genuinely has a design advantage, while retaining material trade-offs and disadvantages. Aim for a compelling **fair** comparison, not a fabricated win.
+
+Final QA: check completeness percentage per competitor, metric comparability, sources/assumptions, numeric units, relevance to the buyer, and whether every claimed advantage is defensible and falsifiable.
