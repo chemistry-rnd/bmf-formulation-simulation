@@ -132,3 +132,12 @@ Review the official Skolkovo clusters and priority directions. Determine the pri
 ## Final precision check
 
 Review every section for generic/abstract formulations. Replace them with the most concrete verified technical language available, including named materials, classes, procedures and standards. Verify the classification block is at the top and reflects the actual technical subject, not just its AI research tooling.
+
+
+## Pass 5a — Falsifiability engineering pass
+
+Convert vague functions into concrete candidate embodiments and numeric **design targets**: composition, manufacturing, application, consumption, layers, drying, environment, test and failure thresholds. Label unmeasured target parameters internally as hypotheses/design values, not measured results. Verify units and mass balance. Prepare a separate evidence ledger for all factual performance claims.
+
+## Pass 7b — Vertical competitor matrix
+
+Generate one primary comparison matrix: rows are detailed parameters, columns are our technology and a small number of named analogues. Link only the analogue's official site/technology in the heading; put patent links in the patent section. Avoid separate generic advantages table; articulate advantages adjacent to the matrix. Review for numeric comparability, unit consistency and narrow-column readability.
