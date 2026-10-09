@@ -147,3 +147,18 @@ Prefer concrete domain-specific terms over generic abstractions. Where reliably 
 ## 14. Skolkovo cluster classification (all projects)
 
 Before drafting, review the current official Skolkovo cluster and priority-direction descriptions, choose the best-fitting cluster and **specific priority/subpriority** by the core commercialized technology (not merely by the use of AI in R&D). Record alternative clusters and reasoning in project research. Place a compact classification block at the very beginning of the expert-facing Technology Description: cluster, priority direction/code, and a one-sentence fit rationale. Verify codes against the current official source; do not invent them or claim formal approval by Skolkovo. Write the main description in terminology consistent with the selected priority without changing the underlying technical facts.
+
+
+## 15. Falsifiable technical specificity and engineering embodiment
+
+Every technology description must be **operationally falsifiable** (Popper-style): state the most plausible concrete engineering embodiment, named component classes and, where justified, specific candidate substances/grades, formulation ranges, preparation operations, process settings, application rates, layers, drying time, test conditions, numerical target values and tolerances. Distinguish design specifications and hypotheses from verified test outcomes in the internal evidence ledger. A proposed quantitative design value may be stated as a **design parameter**, never falsely as a measured achievement. Do not hide behind functional abstractions (“special additive”, “applied in a thin layer”). Explain exactly what is made, how it is made, how it is used and how failure is detected. Prefer testable ranges and units over unmeasurable adjectives.
+
+For material/chemical projects include: composition table (substance or specific candidate class, role, mass-% range), manufacturing process card (equipment, sequence, conditions, controls), application card (preparation, number of layers, application method, g/m², temperature, humidity, drying), and property/acceptance matrix. Place sensitive IP-level detail in an explicitly referenced appendix only when the main document still has enough detail to be falsifiable.
+
+The expert-facing description is a complete target design, **not a fabricated lab report**. If measurements have not been performed, no claim that a company tested a number of variants or achieved particular measured values is allowed.
+
+## 16. Comparison matrix orientation
+
+Use **one main vertically parameterized comparison matrix**, with **rows = many qualitative/quantitative parameters** and **columns = our technology and named competitors/analogues**. Prefer numeric metrics with units and consistent measurement basis. Include a source link in each competitor's column heading (official product/technology site); do not add citation/source columns or link to general review papers inside the matrix. Keep the number of competitor columns small enough to remain readable; split into thematic matrices only when necessary. A separate prose section may interpret advantages without repeating a second broad table. Do not invent competitor performance figures; where unavailable, indicate that a comparable public value is not disclosed.
+
+Patent references belong in a separate patent landscape section, with Russian and international documents distinguished and links to actual patent records. Do not put general literature citations into the comparison matrix.
