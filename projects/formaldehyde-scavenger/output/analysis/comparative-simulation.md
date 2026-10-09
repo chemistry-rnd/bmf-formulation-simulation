@@ -54,3 +54,30 @@ Metrics 1–4 are mathematically dependent on the same transfer-efficiency assum
 ## Compliance interpretation
 
 The model yields numeric **process-scenario** cells. It does not yet establish 7/15 product-specific competitor cells. For a valid product comparison, collect manufacturer data or test actual products using the same protocol. The scenario matrix may be shown as an engineering appendix, explicitly labelled as modelled.
+
+
+## Market reference benchmarks — iteration 002
+
+Use market-reference data to replace empty cells **only when the comparator is explicitly a market class**, not a specific product whose value is unknown.
+
+### Published paint benchmarks
+
+- Tikkurila Optiva Colour (interior waterborne acrylic paint): 8.4–12 m²/L per coat; non-stick ~1 h; repaintable ~4 h. Manufacturer: https://tikkurila.com/for-everyone/products/optiva-colour
+- Tikkurila Everal Aqua Matt (waterborne enamel intended also for wood/chipboard): 9.8–14 m²/L; non-stick ~1 h; repaintable ~4 h. Manufacturer: https://production-tk-tikkurila.cms.tikkurila.com/products/everal-aqua-matt
+- Silkcoat Acrylic (exterior paint, less comparable use case): 100–170 g/m²; touch-dry 15–20 min. Manufacturer: https://silkcoat.com/en/products/exterior-paints/acrylic/
+
+**Unit conversion:** 8.4–12 m²/L = 83.3–119.0 mL/m². On a 16-mm edge of length 1 m (0.016 m²), this corresponds to 1.33–1.90 mL of paint, **assuming the flat-surface coverage rate transfers to an exposed edge**. That assumption is unvalidated; this is not the published edge application rate. For our design, 36 g/m² = 0.576 g/m edge. A mass comparison requires paint density and identical functional coverage criteria.
+
+### Formaldehyde reference — not a market mean
+
+EU REACH regulation 2023/1464 specifies 0.062 mg/m³ for furniture and wood-based articles under prescribed emission test conditions. This is a regulatory concentration limit, **not an average measured competitor emission and not equivalent to an edge-specific flux in µg/(m²·h)**. Source: https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=celex%3A32023R1464
+
+Do not compare a proposed 70% reduction against the 0.062 mg/m³ concentration without a matched control and consistent chamber protocol.
+
+### Comparison taxonomy
+
+1. Product value: documented exact competitor TDS number.
+2. Market benchmark: a clearly named representative product/class, with conditions.
+3. Derived scenario: mathematical conversion with assumptions and uncertainty.
+
+Never relabel (2) or (3) as a measured property of another named competitor. For quantitative coverage, only count cells where the compared quantity, units, substrate and test endpoint are sufficiently aligned.
