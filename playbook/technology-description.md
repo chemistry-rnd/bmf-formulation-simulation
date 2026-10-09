@@ -179,3 +179,8 @@ Test two distinct hypotheses in sequence:
 2. **New-metric hypothesis:** identify a meaningful, measurable metric on which our technology could plausibly outperform alternatives; define units, expected mechanism, comparable measurement protocol and falsification threshold. Add it only if relevant and fair, not merely to inflate coverage.
 
 Record both hypotheses, evidence, assumptions, outcomes, and next experiments in `output/final-result/promotion-changes.md`. If neither produces a defensible numeric comparison, leave the compliance status FAIL and iterate again. Promotion Changes is also a marketing-metric discovery artifact: rank metrics to test and later communicate, without disguising assumptions as observations.
+
+
+## Research target engineering pass
+
+Before drafting AI Research Specification, create/update `output/analysis/research-target-engineering.md`: baseline, improvement potential, quantified target, mechanism, research questions and falsification test for each important metric. Apply improvement factors in the correct direction and check physical feasibility. Feed these targets into AI Research Specification. Preserve separate status of modelled targets versus measured results.
