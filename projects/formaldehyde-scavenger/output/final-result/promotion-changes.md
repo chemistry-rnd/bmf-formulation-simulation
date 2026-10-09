@@ -109,3 +109,25 @@ The three original alternatives belong to different product stages: consumer spr
 
 ### Recommendation for next numeric-compliance attempt
 Use a shortlist of products with actual published TDS for the **same stage of use** (finished edge coating / post-install surface treatment) and request comparative measurements from vendors or run a standardized independent head-to-head test. Keep the original three as market-context analogues if useful, but do not misrepresent their manufacturing parameters as end-use metrics.
+
+
+## Iterations 6–8 — scenario bounds, qualitative advantage, final promotion gate
+
+### Iteration 6 — favorable vs adverse scenarios
+Baseline engineering targets: 36 g/m² application, 9 min ready time, 0.060 mm dimensional change, ≥70% integrated 90-day HCHO reduction. On a 16-mm cut, nominal applied mass is **0.576 g per metre**. These are engineering specification values, not observations.
+
+Three scenario types are required for future comparison: central, favorable to us, adverse to us. Competitor numeric uncertainty ranges cannot be established from missing manufacturer data; **no numeric competitor upper/lower bounds are asserted**. Favorable extreme selection therefore does not count toward quantitative competitor coverage.
+
+### Iteration 7 — qualitative differentiators
+- Fresh-cut-specific process and dose control are explicit in our design.
+- Speco is a ready-to-use furniture spray; fresh-cut dose and 90-day cut-specific results are not publicly specified in the cited product material.
+- BASF Loxanol is a paint additive; its 6% recommended incorporation rate describes formulation, not cut application.
+- Asta FA1001 is marketed for panel production; its use is a different process stage.
+
+**Interpretation:** these are design/use-case distinctions, not claims that competitors lack undocumented features. Most persuasive laboratory demonstration: weigh overspray vs contact dose and measure process-ready time, swelling and HCHO emissions under one shared protocol.
+
+### Iteration 8 — promotion/compliance audit
+- Final Result comparison matrix updated with specific qualitative differentiation and our 40%-stress engineering targets.
+- Quantitatively comparable competitor end-use cells remain 0/15 for the five core metrics; required minimum 9/15.
+- **Compliance: FAIL (0%).** No fabricated numerical bounds or cherry-picked estimates were inserted.
+- Next falsification priority: head-to-head application to 16-mm cuts, gravimetric mass balance, operator time and 90-day emission tests. Report all outcomes, including reversals where competitors outperform.
