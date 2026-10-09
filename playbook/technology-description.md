@@ -189,3 +189,8 @@ Before drafting AI Research Specification, create/update `output/analysis/resear
 ## Competitive Advantage Discovery pass (before Research Target Engineering)
 
 Read market competitors and patent/technical context; identify opportunities where the product can plausibly outperform. For each: specific metric and unit, competitor evidence, mechanism, potential improvement range, confidence, research effort and falsification test. Rank and select a small set of leverage metrics. Write `output/analysis/competitive-advantage-discovery.md`. Then assign individualized numeric targets in `research-target-engineering.md`, not a universal improvement percentage. Record rejected directions and why.
+
+
+## Final comparison matrix fill procedure
+
+For each empty/generic cell: search product TDS, then market reference, then normalized calculation, then sensitivity-based scenario. Record the evidence tier and derivation in comparative simulation and Promotion Changes. Use central/range only when supportable. Review physical units and applicability. Report separately (a) scenario completeness and (b) verified competitor numeric coverage; never pass one as the other. Recheck final matrix for empty generic cells and unsupported precision.
