@@ -123,3 +123,32 @@ Supply only: check ID, rule excerpt, relevant document section, short evidence l
 ### Regression fixtures based on past failures
 
 Tests must catch: missing patent countries; missing Skolkovo classification; two horizontal tables instead of one vertical matrix; 0/15 competitor coverage; replacing “нет сопоставимого протокола” with “требуется отдельная модель”; unsupported medians; invented competitor values; unbalanced mixture percentages; “Предлагаемая спецификация” in table header; duplicate patent section; generic final summary; standalone Sources; version gaps; incorrect artifact packaging; rule changes not reflected in saved output. Each regression fixture includes a bad input and expected failing check ID.
+
+
+## Dependency-aware restart after QA failure
+
+A failed check does **not** restart the entire workflow. Each stage has immutable inputs and content hashes. The controller maps a failed gate to the earliest stage that can correct the root cause, invalidates only its affected descendants, and reuses other cached stage artifacts.
+
+| Failure | Restart at | Recompute | Preserve |
+|---|---|---|---|
+| Q04 numeric coverage | 03 targeted research for missing metrics, or 07 modelling if data exists | 07, 09–11, 13–15 | intake, cluster, unrelated research, patents |
+| Q06 advantage rate ≤50% | 05 advantage discovery | 05–07, 08–11, 12 if research goals changed, 13–15 | 00–04 and unaffected research |
+| Q03 matrix orientation | 09 comparison generation | 09–11, 13–15 | research, technology synthesis, target engineering |
+| Q02 patents | 03 patent research | patent section in 09, 13–15 | all non-patent stages |
+| Q01 cluster | 01 classification | dependent outline/sections, 13–15 | unrelated raw research |
+| Q07 arithmetic | 06 or 07 depending on source | affected numeric outputs and downstream tables | unrelated documents |
+| Q09 vague technology description | 08 draft section | affected sections, 13–15 | research and simulation |
+| Q10 forbidden wording | 15 local repair | QA and packaging | all upstream stages |
+
+### Advantage-rate repair strategy
+
+1. Identify losing metrics and evidence tiers; preserve winning metrics and constraints.
+2. Retry stage 05 with only losing metrics, competitor context and prior scenario assumptions. Require two candidate improvements: one existing metric and one new relevant metric.
+3. Stage 06 changes only selected target parameters; stage 07 reruns sensitivity/feasibility and detects rank reversals.
+4. Stage 09 updates affected matrix rows; stage 11 updates Promotion Changes and scores; stage 13 reassembles Final Result.
+5. Stage 14 reruns all final gates against saved output. Stage 12 AI Research Specification reruns only if selected research objectives/constraints changed.
+6. Limit repair cycles (default 3) and total budget. If still failing, emit BLOCKED diagnostic artifact with remaining losing metrics; never force a winning score by distorting evidence.
+
+### Cache invalidation
+
+Use a dependency graph at artifact/section granularity, not just numeric stage order. Cache key = source commit + input artifact hashes + relevant rule IDs/versions + prompt version + model/config. Changing a comparison row must not invalidate unrelated patents or Skolkovo research. The controller emits `restart-plan.json` listing failed checks, restart nodes, invalidated artifacts, reused artifacts and estimated incremental cost before execution.
