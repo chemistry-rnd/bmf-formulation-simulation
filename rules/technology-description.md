@@ -162,3 +162,12 @@ The expert-facing description is a complete target design, **not a fabricated la
 Use **one main vertically parameterized comparison matrix**, with **rows = many qualitative/quantitative parameters** and **columns = our technology and named competitors/analogues**. Prefer numeric metrics with units and consistent measurement basis. Include a source link in each competitor's column heading (official product/technology site); do not add citation/source columns or link to general review papers inside the matrix. Keep the number of competitor columns small enough to remain readable; split into thematic matrices only when necessary. A separate prose section may interpret advantages without repeating a second broad table. Do not invent competitor performance figures; where unavailable, indicate that a comparable public value is not disclosed.
 
 Patent references belong in a separate patent landscape section, with Russian and international documents distinguished and links to actual patent records. Do not put general literature citations into the comparison matrix.
+
+
+## 17. Final-result declarative language gate
+
+The expert-facing Final Result is written as a concrete technical embodiment in the **declarative present tense**. Do not use labels or disclaimers such as “гипотеза”, “проектная гипотеза”, “предполагается”, “ожидается”, “планируется”, “проектное значение”, “TBD”, “target”, “expected”, or equivalent provisional language in the final document. Give precise falsifiable specifications: component identity, concentration, processing conditions, application dose, drying time, and measurable acceptance criteria. The generated Final Result is a technology specification, not an R&D diary.
+
+**Evidence integrity remains mandatory:** do not invent completed tests, measured outcomes, certifications or comparative performance. Keep the provenance and verification status of each unmeasured numeric design specification in the internal research/QA ledger. Declarative design specifications are allowed; fabricated measured results are not.
+
+This gate is applied both **before drafting** (system-level generation contract) and **after drafting** (scan headings, tables, body and footnotes; rewrite or block offending passages). The QA pass must also reject invented evidence and misleading claims of completed validation.
