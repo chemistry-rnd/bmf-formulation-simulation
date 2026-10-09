@@ -153,3 +153,8 @@ Generate one primary comparison matrix: rows are detailed parameters, columns ar
 ## Design-for-falsification review
 
 At the start and end of every run, enforce the engineering falsification brief in global rules. Replace abstract or hedged statements with specific materials, quantities, process conditions, tolerances and failure criteria. The final document is a testable engineering design, not a status or evidence report; keep actual experiment records separate.
+
+
+## Patent neutrality QA
+
+Require one verified Russian and preferably three verified foreign patents, each with identifier, link and short technical description. Remove comparison, praise, superiority, patentability and differentiator commentary from the patent section. Keep comparisons in the market matrix only.
