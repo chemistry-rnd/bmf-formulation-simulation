@@ -194,3 +194,8 @@ Read market competitors and patent/technical context; identify opportunities whe
 ## Final comparison matrix fill procedure
 
 For each empty/generic cell: search product TDS, then market reference, then normalized calculation, then sensitivity-based scenario. Record the evidence tier and derivation in comparative simulation and Promotion Changes. Use central/range only when supportable. Review physical units and applicability. Report separately (a) scenario completeness and (b) verified competitor numeric coverage; never pass one as the other. Recheck final matrix for empty generic cells and unsupported precision.
+
+
+## Mandatory post-generation compliance repair loop
+
+After **every** generation or revision, reread the full global rules and project requirements and scan the **actual saved Final Result** (not only the draft). For each violation, generate a concrete corrective patch, apply it, reread the saved file, and repeat until all machine-checkable rules pass. This is a required regeneration loop, not a passive QA note. Check headings, table cells, banned placeholders, numeric units, patent neutrality, matrix orientation, appendix references, and absence of redundant conclusions. Never silently replace unavailable product evidence with invented values; instead repair the matrix using defensible method-level scenarios or a different measurable criterion and record the gap in Promotion Changes. Archive only the corrected version and record remaining evidence limitations separately.
