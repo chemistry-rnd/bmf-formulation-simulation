@@ -70,7 +70,6 @@ jobs:
           SCENARIOS: ${{ inputs.scenarios }}
           SEED: ${{ inputs.seed }}
           MODE: ${{ inputs.mode }}
-        env:
           FORMULA_COUNT: ${{ inputs.formula_count }}
         run: |
           set -euo pipefail
