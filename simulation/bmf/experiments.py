@@ -11,7 +11,7 @@ from .formulations import FORMULATIONS, ALL_FORMULATIONS
 from .mass_balance import mass_balance_for
 from .transport import drying_time_h, hcho_residual_fraction, peak_swelling_risk_index
 
-MODEL_VERSION = "bmf-cpu-v0.1.0"
+MODEL_VERSION = "bmf-cpu-v0.2.0"
 
 
 def _scale_unit(series: np.ndarray, low: float, high: float) -> np.ndarray:
@@ -27,15 +27,24 @@ def run_virtual_experiments(
     if n_scenarios < 1 or n_scenarios > 10000:
         raise ValueError("n_scenarios must be in [1, 10000]")
     rng = np.random.default_rng(seed)
-    sampler = qmc.LatinHypercube(d=10, seed=seed)
-    base_unit = sampler.random(n=n_scenarios)
+    shared_sampler = qmc.LatinHypercube(d=10, seed=seed)
+    shared_unit = shared_sampler.random(n=n_scenarios)
+    shared_unit = np.clip(shared_unit, 0.0, 1.0)
 
     rows: list[dict[str, Any]] = []
     for fid in formula_ids:
         formula = FORMULATIONS[fid]
-        # Deterministic per-formula random offset while preserving reproducibility.
-        unit = (base_unit + qmc.LatinHypercube(d=10, seed=seed + ord(fid)).random(n=n_scenarios)) / 2.0
-        unit = np.clip(unit, 0.0, 1.0)
+        # Environmental and dose conditions are shared across formulas, while
+        # uncertain chemical/model coefficients are sampled independently.
+        unit = shared_unit.copy()
+        uncertainty = qmc.LatinHypercube(d=6, seed=seed + 97 * (ord(fid) - 64)).random(n=n_scenarios)
+        uncertainty = np.clip(uncertainty, 0.0, 1.0)
+        unit[:, 5] = uncertainty[:, 0]
+        unit[:, 6] = uncertainty[:, 1]
+        unit[:, 7] = uncertainty[:, 2]
+        unit[:, 8] = uncertainty[:, 3]
+        unit[:, 9] = uncertainty[:, 4]
+
 
         temperature = _scale_unit(unit[:, 0], 18.0, 30.0)
         humidity = _scale_unit(unit[:, 1], 0.35, 0.80)

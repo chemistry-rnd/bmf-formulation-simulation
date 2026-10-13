@@ -76,6 +76,11 @@ jobs:
             --mode "$MODE" \
             --output-dir simulation-output
 
+      - name: Generate research report
+        run: |
+          set -euo pipefail
+          python scripts/generate_research_report.py --input-dir simulation-output --output-dir simulation-output
+
       - name: Verify artifact checksums
         run: |
           set -euo pipefail

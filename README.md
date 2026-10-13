@@ -30,3 +30,18 @@ The main Technology Description is written as a complete technology for expert r
 Generation can be started through the **Generate Technology Description** GitHub Actions workflow, which runs the standard OpenCode agent over the same playbook and rules. The manual workflow remains authoritative when the action is unavailable or when artifacts must be reviewed before publication.
 
 Start with `playbook/technology-description.md`.
+
+## BMF formulation simulation
+
+Run locally:
+```bash
+python scripts/run_simulation.py --config configs/bmf-default.json --output-dir simulation-output
+python scripts/generate_research_report.py --input-dir simulation-output --output-dir simulation-output
+```
+
+Manual second-seed convergence comparison:
+```bash
+python scripts/run_simulation.py --formulas all --scenarios 10000 --seed 20261013 --mode full --output-dir run-seed-a
+python scripts/run_simulation.py --formulas all --scenarios 10000 --seed 20261107 --mode full --output-dir run-seed-b
+```
+Compare aggregate medians and quantiles, Pareto membership and sensitivity; larger N improves sampling precision only, not model validity.
