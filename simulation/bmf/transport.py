@@ -56,18 +56,22 @@ def hcho_residual_fraction(
     barrier_factor: float,
     diffusion_factor: float = 1.0,
     temperature_c: float = 23.0,
+    available_hcho_g_m2: float = 5.0,
 ) -> float:
     """Dimensionless residual HCHO fraction after treated layer.
 
     Lower is better. This is a bounded parametric surrogate, not measured
     emission reduction.
     """
-    if wet_application_g_m2 <= 0:
+    if wet_application_g_m2 < 0:
+        raise ValueError("wet application must be non-negative")
+    if capacity_g_m2 < 0 or barrier_factor < 0 or available_hcho_g_m2 < 0:
+        raise ValueError("capacity, barrier factor and available HCHO must be non-negative")
+    if available_hcho_g_m2 <= 0:
         return 1.0
-    if capacity_g_m2 < 0 or barrier_factor < 0:
-        raise ValueError("capacity and barrier factor must be non-negative")
     temperature_term = 1.0 + 0.02 * (temperature_c - 20.0)
-    exponent = capacity_g_m2 / max(wet_application_g_m2, 1e-9) + 0.8 * barrier_factor
+    capacity_ratio = min(capacity_g_m2 / available_hcho_g_m2, 1.0)
+    exponent = capacity_ratio + 0.8 * barrier_factor
     reduction = 1.0 - math.exp(-max(exponent, 0.0) / max(diffusion_factor, 1e-9) * temperature_term)
     reduction = min(max(reduction, 0.0), 0.995)
     return 1.0 - reduction

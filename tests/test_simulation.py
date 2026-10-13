@@ -119,3 +119,15 @@ def test_pipeline_artifacts_and_hashes(tmp_path: Path):
     assert manifest["seed"] == 123
     assert set(manifest["formulas"]) == {"A", "B", "C"}
     assert manifest["generated_artifact_is_virtual"] is True
+
+
+def test_dose_changes_hcho_residual_absolutely():
+    from simulation.bmf.chemistry import theoretical_formaldehyde_capacity
+    from simulation.bmf.transport import hcho_residual_fraction
+
+    cap10 = theoretical_formaldehyde_capacity(10.0 * 0.2)["accessible_reversible_adjusted_capacity_g_m2"]
+    cap20 = theoretical_formaldehyde_capacity(20.0 * 0.2)["accessible_reversible_adjusted_capacity_g_m2"]
+    r10 = hcho_residual_fraction(cap10, 10.0, 0.5, 1.0, 23.0, available_hcho_g_m2=5.0)
+    r20 = hcho_residual_fraction(cap20, 20.0, 0.5, 1.0, 23.0, available_hcho_g_m2=5.0)
+    assert r10 != r20
+    assert cap20 > cap10
