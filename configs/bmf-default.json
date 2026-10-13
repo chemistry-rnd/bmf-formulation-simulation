@@ -1,0 +1,7 @@
+{
+  "formulas": "all",
+  "scenarios": 1000,
+  "seed": 20261013,
+  "mode": "pilot",
+  "output_dir": "simulation-output"
+}

@@ -1,0 +1,92 @@
+name: Formulation Simulation
+
+on:
+  workflow_dispatch:
+    inputs:
+      formulas:
+        description: "Formulas to run"
+        required: true
+        type: choice
+        options:
+          - all
+          - A
+          - B
+          - C
+        default: "all"
+      scenarios:
+        description: "Virtual scenarios per formula (default 1000, max 10000)"
+        required: true
+        default: "1000"
+      seed:
+        description: "Random seed for reproducibility"
+        required: true
+        default: "20261013"
+      mode:
+        description: "Execution mode"
+        required: true
+        type: choice
+        options:
+          - mock
+          - pilot
+          - full
+        default: "pilot"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: formulation-simulation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Run simulation
+        env:
+          FORMULAS: ${{ inputs.formulas }}
+          SCENARIOS: ${{ inputs.scenarios }}
+          SEED: ${{ inputs.seed }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          set -euo pipefail
+          rm -rf simulation-output
+          python scripts/run_simulation.py \
+            --formulas "$FORMULAS" \
+            --scenarios "$SCENARIOS" \
+            --seed "$SEED" \
+            --mode "$MODE" \
+            --output-dir simulation-output
+
+      - name: Verify artifact checksums
+        run: |
+          set -euo pipefail
+          cd simulation-output
+          sha256sum -c sha256sums.txt
+
+      - name: Upload simulation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bmf-formulation-simulation-${{ github.run_id }}
+          path: simulation-output/
+          retention-days: 30
+          if-no-files-found: warn
