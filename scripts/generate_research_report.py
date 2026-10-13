@@ -15,8 +15,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Generate BMF research report from simulation artifacts")
     parser.add_argument("--input-dir", default="simulation-output")
     parser.add_argument("--output-dir", default="simulation-report")
+    parser.add_argument("--run-id", default=None)
     args = parser.parse_args()
-    result = generate_report(Path(args.input_dir), Path(args.output_dir), use_llm=False)
+    result = generate_report(Path(args.input_dir), Path(args.output_dir), use_llm=False, run_id=args.run_id)
     print(f"WROTE {result['output_dir']}")
     for name in result["files"]:
         print(f"  {name}")

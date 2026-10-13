@@ -84,8 +84,8 @@ def test_virtual_results_are_not_measured(tmp_path: Path):
     run_pipeline(tmp_path / "labels", ["A", "B"], n_scenarios=5, seed=7, mode="mock")
     exp = pd.read_csv(tmp_path / "labels" / "virtual_experiments.csv")
     assert (exp["result_status"].astype(str).str.startswith("virtual")).all()
-    report = (tmp_path / "labels" / "report.md").read_text()
-    assert "not laboratory measurements" in report
+    limitations = (tmp_path / "labels" / "limitations.md").read_text()
+    assert "not experimental confirmation" in limitations
     assumptions = json.loads((tmp_path / "labels" / "assumptions.json").read_text())
     assert assumptions["result_type"].startswith("virtual")
 
@@ -108,7 +108,6 @@ def test_pipeline_artifacts_and_hashes(tmp_path: Path):
         "pareto.csv",
         "assumptions.json",
         "model_manifest.json",
-        "report.md",
         "limitations.md",
         "sha256sums.txt",
     }

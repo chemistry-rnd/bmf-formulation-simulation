@@ -11,7 +11,7 @@ from .formulations import FORMULATIONS, ALL_FORMULATIONS
 from .mass_balance import mass_balance_for
 from .transport import drying_time_h, hcho_residual_fraction, peak_swelling_risk_index
 
-MODEL_VERSION = "bmf-cpu-v0.2.0"
+MODEL_VERSION = "bmf-cpu-v0.3.0"
 
 
 def _scale_unit(series: np.ndarray, low: float, high: float) -> np.ndarray:

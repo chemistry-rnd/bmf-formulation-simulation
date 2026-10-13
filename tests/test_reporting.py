@@ -17,7 +17,7 @@ def test_report_generates_expected_artifacts(tmp_path: Path):
     out = tmp_path / "rep"
     result = generate_report(inp, out, use_llm=False)
     expected = {
-        "research-report.md",
+        "BMF-Research-Report.md",
         "expert-feedback-brief.md",
         "target-reconciliation.csv",
         "report-manifest.json",
@@ -34,7 +34,7 @@ def test_report_matches_csv_values(tmp_path: Path):
     run_pipeline(inp, ["A", "B", "C"], n_scenarios=20, seed=7, mode="mock")
     out = tmp_path / "rep"
     generate_report(inp, out, use_llm=False)
-    report = (out / "research-report.md").read_text(encoding="utf-8")
+    report = (out / "BMF-Research-Report.md").read_text(encoding="utf-8")
     properties = pd.read_csv(inp / "property_predictions.csv")
     assert "virtual model predictions" in report
     assert "NON-COMPARABLE" in (out / "target-reconciliation.csv").read_text(encoding="utf-8")
@@ -55,5 +55,5 @@ def test_target_reconciliation_does_not_claim_mm_or_90_day(tmp_path: Path):
     assert "NON-COMPARABLE" in text
     assert "0.060" in text
     assert "70" in text
-    lowered = ((out / "research-report.md").read_text(encoding="utf-8") + "\n" + (out / "target-reconciliation.csv").read_text(encoding="utf-8")).lower()
+    lowered = ((out / "BMF-Research-Report.md").read_text(encoding="utf-8") + "\n" + (out / "target-reconciliation.csv").read_text(encoding="utf-8")).lower()
     assert "90" in lowered

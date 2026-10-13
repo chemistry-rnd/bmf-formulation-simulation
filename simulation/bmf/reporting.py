@@ -14,7 +14,7 @@ import pandas as pd
 from .experiments import MODEL_VERSION
 
 REPORT_MANIFEST_NAME = "report-manifest.json"
-RESEARCH_REPORT_NAME = "research-report.md"
+RESEARCH_REPORT_NAME = "BMF-Research-Report.md"
 EXPERT_BRIEF_NAME = "expert-feedback-brief.md"
 TARGET_RECONCILIATION_NAME = "target-reconciliation.csv"
 
@@ -40,6 +40,11 @@ def load_artifacts(input_dir: Path) -> dict[str, Any]:
     missing = [name for name in required if not (input_dir / name).is_file()]
     if missing:
         raise FileNotFoundError(f"missing simulation artifacts: {missing}")
+    discovered_path = input_dir / "discovered_candidates.json"
+    candidates = []
+    if discovered_path.is_file():
+        candidates = json.loads(discovered_path.read_text(encoding="utf-8"))
+
     return {
         "mass_balance": pd.read_csv(input_dir / "mass_balance.csv"),
         "experiments": pd.read_csv(input_dir / "virtual_experiments.csv"),
@@ -48,6 +53,7 @@ def load_artifacts(input_dir: Path) -> dict[str, Any]:
         "pareto": pd.read_csv(input_dir / "pareto.csv"),
         "assumptions": json.loads((input_dir / "assumptions.json").read_text(encoding="utf-8")),
         "manifest": json.loads((input_dir / "model_manifest.json").read_text(encoding="utf-8")),
+        "candidates": candidates,
     }
 
 
@@ -134,7 +140,7 @@ def target_reconciliation(properties: pd.DataFrame, experiments: pd.DataFrame) -
     return pd.DataFrame(rows)
 
 
-def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False) -> dict[str, Any]:
+def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False, run_id: str | None = None) -> dict[str, Any]:
     artifacts = load_artifacts(input_dir)
     experiments = artifacts["experiments"]
     properties = artifacts["properties"]
@@ -181,6 +187,26 @@ def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False) ->
     pareto_table = pareto.round(4).to_markdown(index=False)
     sensitivity_head = sensitivity.head(12).round(4).to_markdown(index=False)
     wins_table = wins.to_markdown(index=False) if not wins.empty else "No win-count data."
+    candidates = artifacts.get("candidates", [])
+    if candidates:
+        candidate_lines = ["| Candidate | PEI % | Acrylic % | Dose g/m2 | Water g/m2 | Residual surrogate | Swelling risk | Drying h | Compatibility |", "|---|---:|---:|---:|---:|---:|---:|---:|---|"]
+        for c in candidates:
+            candidate_lines.append(
+                "| {cid} | {pei:.1f} | {acr:.1f} | {dose:.1f} | {water:.2f} | {res:.3f} | {swell:.4f} | {dry:.2f} | {comp} |".format(
+                    cid=c["candidate_id"],
+                    pei=c["pei_active_pct"],
+                    acr=c["acrylic_dry_pct"],
+                    dose=c["wet_application_g_m2"],
+                    water=c["water_load_g_m2"],
+                    res=c["hcho_residual_fraction_mid"],
+                    swell=c["peak_swelling_risk_index"],
+                    dry=c["drying_time_h_mid"],
+                    comp=c["compatibility_status"],
+                )
+            )
+        candidate_table = "\n".join(candidate_lines)
+    else:
+        candidate_table = "No new discovered candidates passed the feasibility screen in this run."
     property_agg_table = property_agg.round(4).to_markdown(index=False)
 
     llm_note = "Optional LLM interpretation is disabled in this offline run."
@@ -192,7 +218,7 @@ def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False) ->
 ## 1. Provenance
 - Model version: `{MODEL_VERSION}`
 - Source commit: `{manifest.get('source_commit', 'unknown')}`
-- Simulation run ID: `{manifest.get('mode', 'unknown')}` mode / config from `model_manifest.json`
+- Simulation run ID: `{run_id or manifest.get('run_id', 'local/unknown')}`
 - Input artifact directory: `{input_dir}`
 - Source artifact model manifest: `model_manifest.json`
 - Random seed: `{manifest.get('seed', 'unknown')}`
@@ -204,6 +230,9 @@ def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False) ->
 Material-balance rows are in `mass_balance.csv`; derived purchasable solution masses are in `assumptions.json`.
 
 Mass fractions sum to 100 on the stated ready-to-use basis. Water includes water in purchased dispersions and PEI solutions.
+
+## Discovered candidates
+{candidate_table}
 
 ## 3. Methods, equations and assumptions
 See `assumptions.json`. Main equations:
@@ -292,6 +321,7 @@ All values are virtual model predictions from `{MODEL_VERSION}`.
         "model_version": MODEL_VERSION,
         "source_simulation_manifest": manifest,
         "input_dir": str(input_dir),
+        "run_id": run_id or manifest.get("run_id", "local/unknown"),
         "output_dir": str(output_dir),
         "artifacts": manifest_files,
         "sha256": {name: sha256_file(output_dir / name) for name in manifest_files},

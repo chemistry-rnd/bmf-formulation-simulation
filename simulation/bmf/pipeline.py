@@ -15,8 +15,9 @@ import numpy as np
 import pandas as pd
 
 from .analysis import aggregate_properties, pareto_table, sensitivity_analysis
+from .discovery import build_candidate, screen_candidates, search_candidates, select_distinct, MODEL_VERSION as DISCOVERY_VERSION
 from .experiments import MODEL_VERSION, run_virtual_experiments
-from .formulations import FORMULATIONS, ALL_FORMULATIONS
+from .formulations import ALL_FORMULATIONS, FORMULATIONS, SUPPLIER_ASSUMPTIONS
 from .mass_balance import mass_balance_all
 
 
@@ -120,11 +121,93 @@ def run_pipeline(
     prop_df = pd.DataFrame(prop_rows)
     prop_df.to_csv(output_dir / "property_predictions.csv", index=False, float_format="%.12g")
 
-    # Sensitivity
-    # Build baseline derived water and capacity inputs for each formula.
-    from .formulations import FORMULATIONS as F
+    # Stage 1 constrained formula discovery (v0.3).
+    base_reference = []
+    for fid in formula_ids:
+        formula = FORMULATIONS[fid]
+        b = build_candidate(
+            fid,
+            formula.mass_fractions["pei_active"],
+            formula.mass_fractions["acrylic_dry_solids"],
+            formula.wet_application_g_m2,
+            formula.mass_fractions.get("nonionic_wetter", 0.0),
+        )
+        base_reference.append(b)
 
+    pool_size = 50 if mode == "mock" else 200 if mode == "pilot" else 500
+    candidate_pool = screen_candidates(pool_size, seed + 101)
+    eligible_candidates = [c for c in candidate_pool if c.get("status") == "FEASIBLE"]
+    selected_candidates = select_distinct(eligible_candidates, base_reference, max_new=3)
+    for i, candidate in enumerate(selected_candidates):
+        candidate["candidate_id"] = ["D", "E", "F"][i]
+
+    formula_search_df = pd.DataFrame(candidate_pool)
+    formula_search_df.to_csv(output_dir / "formula-search.csv", index=False, float_format="%.12g")
+
+    feasible_df = pd.DataFrame(candidate_pool)
+    feasible_df["selected_new_formula"] = feasible_df["candidate_id"].isin([c["candidate_id"] for c in selected_candidates])
+    feasible_df["selection_status"] = feasible_df["selected_new_formula"].map({True: "selected", False: "screened"})
+    feasible_df.to_csv(output_dir / "feasible-candidates.csv", index=False, float_format="%.12g")
+
+    candidate_mass_rows = []
+    edge_area = SUPPLIER_ASSUMPTIONS["edge_thickness_m"] * SUPPLIER_ASSUMPTIONS["linear_piece_length_m"]
+    for candidate in selected_candidates:
+        pct = {
+            "pei_active": candidate["pei_active_pct"],
+            "urea": 0.0,
+            "acrylic_dry_solids": candidate["acrylic_dry_pct"],
+            "nonionic_wetter": candidate["wetter_pct"],
+            "other_nonvolatile_binder": 0.0,
+            "water_carrier": candidate["water_pct"],
+        }
+        for component, frac in pct.items():
+            candidate_mass_rows.append(
+                {
+                    "formula": candidate["candidate_id"],
+                    "formula_name": "Discovered candidate " + candidate["candidate_id"],
+                    "wet_application_g_m2": candidate["wet_application_g_m2"],
+                    "component": component,
+                    "mass_fraction_pct": frac,
+                    "mass_g_per_m2": candidate["wet_application_g_m2"] * frac / 100.0,
+                    "mass_g_per_linear_m_16mm": candidate["wet_application_g_m2"] * frac / 100.0 * edge_area,
+                }
+            )
+    if candidate_mass_rows:
+        mass_df = pd.concat([mass_df, pd.DataFrame(candidate_mass_rows)], ignore_index=True)
+    mass_df.to_csv(output_dir / "mass_balance.csv", index=False, float_format="%.12g")
+    (output_dir / "discovered_candidates.json").write_text(json.dumps(selected_candidates, indent=2, default=str), encoding="utf-8")
+
+    combined_rows = []
+    for item in base_reference + selected_candidates:
+        combined_rows.append(
+            {
+                "formula": item["candidate_id"],
+                "formula_name": item["candidate_id"],
+                "water_load_g_m2_mean": item["water_load_g_m2"],
+                "peak_swelling_risk_p95": item["peak_swelling_risk_index"],
+                "drying_time_h_p95": item["drying_time_h_mid"],
+                "active_mass_consumption_g_m2_mean": item["active_mass_g_m2"],
+                "cost_index_mean": item["cost_index"],
+                "robustness_residual_cv": 1.0 - item["robustness_index"],
+                "hcho_residual_fraction_mean": item["hcho_residual_fraction_mid"],
+            }
+        )
+    combined_prop = pd.DataFrame(combined_rows)
+    combined_pareto = pareto_table(combined_prop)
+    combined_pareto.to_csv(output_dir / "pareto.csv", index=False, float_format="%.12g")
+
+    target_rows = [
+        {"document_target": "Ready-to-install time <= 9 min", "document_value": "9 min", "computed_proxy": "predicted drying-time surrogate", "comparison_status": "NOT_COMPARABLE", "reason": "Drying surrogate is not installation readiness."},
+        {"document_target": "Applied mixture <= 36 g/m2", "document_value": "36 g/m2", "computed_proxy": "nominal candidate dose g/m2", "comparison_status": "PLAUSIBLE", "reason": "Dose is design input; some candidates fall at or below 36 g/m2. Still not measured performance."},
+        {"document_target": "Peak/residual swelling <= 0.060 mm", "document_value": "0.060 mm", "computed_proxy": "dimensionless swelling risk index", "comparison_status": "NOT_COMPARABLE", "reason": "No validated conversion from risk index to millimetres."},
+        {"document_target": "Formaldehyde reduction >= 70% over 90 days", "document_value": "70% over 90 days", "computed_proxy": "residual HCHO surrogate", "comparison_status": "NOT_COMPARABLE", "reason": "Time horizon and measured 90-day emission differ."},
+        {"document_target": "PEI/acrylic manufacturability", "document_value": "stable blend", "computed_proxy": "compatibility status", "comparison_status": "UNKNOWN", "reason": "PEI plus anionic acrylic requires jar tests, pH, viscosity and storage stability experiments."},
+    ]
+    pd.DataFrame(target_rows).to_csv(output_dir / "target-feasibility.csv", index=False)
+
+    (output_dir / "experiment-plan.md").write_text("See report for highest-information tests.\\n", encoding="utf-8")
     sens_rows = sensitivity_analysis(prop_df, {}, seed)
+
     sens_df = pd.DataFrame(sens_rows)
     sens_df.to_csv(output_dir / "sensitivity.csv", index=False, float_format="%.12g")
 
@@ -134,9 +217,9 @@ def run_pipeline(
 
     # Assumptions
     assumptions = _assumptions()
-    (output_dir / "assumptions.json").write_text(
-        json.dumps(assumptions, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
+    assumptions_json = json.dumps(assumptions, indent=2, ensure_ascii=False) + "\n"
+    (output_dir / "assumptions.json").write_text(assumptions_json, encoding="utf-8")
+    (output_dir / "model-assumptions.json").write_text(assumptions_json, encoding="utf-8")
 
     # Plots
     hist_path = output_dir / "plots" / "hcho_residual_hist.png"
@@ -169,65 +252,7 @@ def run_pipeline(
     plt.savefig(pareto_path, dpi=120)
     plt.close()
 
-    # Report
-    report_path = output_dir / "report.md"
     limitations_path = output_dir / "limitations.md"
-    best_pareto = pareto_df.loc[pareto_df["pareto_optimal"] == True, "formula"].tolist()
-    properties_lines = [
-        "| Formula | Mean residual HCHO | p05-p95 residual | Mean water load g/m2 | p95 swelling risk | Mean drying time h | Active mass g/m2 |",
-        "|---|---:|---:|---:|---:|---:|---:|",
-    ]
-    for _, r in prop_df.iterrows():
-        properties_lines.append(
-            "| {formula} | {res:.3f} | {p05:.3f}-{p95:.3f} | {water:.2f} | {swell:.4f} | {dry:.2f} | {active:.2f} |".format(
-                formula=r["formula"],
-                res=r["hcho_residual_fraction_mean"],
-                p05=r["hcho_residual_fraction_p05"],
-                p95=r["hcho_residual_fraction_p95"],
-                water=r["water_load_g_m2_mean"],
-                swell=r["peak_swelling_risk_p95"],
-                dry=r["drying_time_h_mean"],
-                active=r["active_mass_consumption_g_m2_mean"],
-            )
-        )
-    properties_markdown = "\n".join(properties_lines)
-
-    report = f"""# BMF formulation simulation report
-
-Model version: `{MODEL_VERSION}`
-Mode: `{mode}`
-Random seed: `{seed}`
-Scenario count per formula: `{n_eff}`
-Formulas: {", ".join(formula_ids)}
-Source commit: `{git_commit()}`
-Generated: {datetime.now(timezone.utc).isoformat()}
-
-## Result status
-
-All values below are **virtual model predictions** from a CPU parameter screen. They are not laboratory measurements, safety evidence, or proof of efficacy.
-
-## Mass balance stage
-
-{mass_df.groupby('formula')['mass_g_per_m2'].sum().to_string() if False else 'Mass-balance rows and derived component masses are stored in `mass_balance.csv`.'}
-
-Formula A/B/C mass fractions sum to 100 % on the stated basis; water includes water in purchased polymer dispersions and PEI solutions.
-
-## Predicted properties (aggregates)
-
-{properties_markdown}
-
-## Pareto screen
-
-Pareto-optimal candidates: {", ".join(best_pareto) if best_pareto else "none"}.
-
-Pareto characteristics: potential emission reduction, water load/swelling risk, drying time, active substance consumption, cost, and robustness to parameter uncertainty.
-
-## Interpretation boundary
-
-Use this screen to prioritize laboratory tests. It does not assign safe, production-ready, or regulatory status to any formula.
-"""
-    report_path.write_text(report, encoding="utf-8")
-
     limitations = """# Limitations
 
 - This is a computational study, not experimental confirmation of formulation properties.
@@ -248,7 +273,6 @@ Use this screen to prioritize laboratory tests. It does not assign safe, product
         "sensitivity.csv",
         "pareto.csv",
         "assumptions.json",
-        "report.md",
         "limitations.md",
         "plots/hcho_residual_hist.png",
         "plots/pareto_scores.png",
