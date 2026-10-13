@@ -5,6 +5,7 @@ import json
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+import os
 from typing import Any
 
 import matplotlib
@@ -16,7 +17,7 @@ import pandas as pd
 
 from .analysis import aggregate_properties, pareto_table, sensitivity_analysis
 from .chemistry import PEI_NITROGEN_MASS_FRACTION
-from .discovery import build_candidate, screen_candidates, search_candidates, select_distinct, MODEL_VERSION as DISCOVERY_VERSION
+from .discovery import build_candidate, screen_candidates, select_distinct, MODEL_VERSION as DISCOVERY_VERSION
 from .experiments import MODEL_VERSION, run_virtual_experiments
 from .formulations import ALL_FORMULATIONS, FORMULATIONS, SUPPLIER_ASSUMPTIONS
 from .mass_balance import mass_balance_all
@@ -156,8 +157,11 @@ def run_pipeline(
     candidate_pool = screen_candidates(pool_size, seed + 101)
     eligible_candidates = [c for c in candidate_pool if c.get("status") == "FEASIBLE"]
     selected_candidates = select_distinct(eligible_candidates, base_reference, max_new=3)
-    for i, candidate in enumerate(selected_candidates):
-        candidate["candidate_id"] = ["D", "E", "F"][i]
+    for rank, (letter, candidate) in enumerate(zip(["D", "E", "F", "G", "H"], selected_candidates), start=1):
+        candidate["candidate_id"] = letter
+        candidate["display_label"] = letter
+        candidate["candidate_rank"] = rank
+        candidate["source_run_id"] = os.environ.get("GITHUB_RUN_ID")
 
     formula_search_df = pd.DataFrame(candidate_pool)
     formula_search_df.to_csv(output_dir / "formula-search.csv", index=False, float_format="%.12g")

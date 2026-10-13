@@ -143,6 +143,8 @@ def target_reconciliation(properties: pd.DataFrame, experiments: pd.DataFrame) -
 def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False, run_id: str | None = None) -> dict[str, Any]:
     artifacts = load_artifacts(input_dir)
     experiments = artifacts["experiments"]
+    feas_path = input_dir / "feasible-candidates.csv"
+    feasible_df = pd.read_csv(feas_path) if feas_path.is_file() else pd.DataFrame()
     properties = artifacts["properties"]
     sensitivity = artifacts["sensitivity"]
     pareto = artifacts["pareto"]
@@ -187,21 +189,35 @@ def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False, ru
     pareto_table = pareto.round(4).to_markdown(index=False)
     sensitivity_head = sensitivity.head(12).round(4).to_markdown(index=False)
     wins_table = wins.to_markdown(index=False) if not wins.empty else "No win-count data."
+    if not feasible_df.empty:
+        funnel_rows = []
+        for field, values in [
+            ("mass_balance_status", feasible_df.get("mass_balance_status")),
+            ("functional_status", feasible_df.get("functional_status")),
+            ("compatibility_status", feasible_df.get("compatibility_status")),
+            ("model_support_status", feasible_df.get("model_support_status")),
+            ("selection_status", feasible_df.get("selection_status")),
+        ]:
+            if values is None:
+                continue
+            for status, count in values.value_counts().sort_index().items():
+                funnel_rows.append({"gate": field, "status": status, "count": int(count)})
+        funnel_table = pd.DataFrame(funnel_rows).to_markdown(index=False)
+    else:
+        funnel_table = "No candidate screening data."
     candidates = artifacts.get("candidates", [])
     if candidates:
-        candidate_lines = ["| Candidate | PEI % | Acrylic % | Dose g/m2 | Water g/m2 | Residual surrogate | Swelling risk | Drying h | Compatibility |", "|---|---:|---:|---:|---:|---:|---:|---:|---|"]
+        candidate_lines = ["| Candidate (stable ID) | Display | Functional | Compatibility | Model | Residual surrogate | Water g/m2 |", "|---|---|---|---|---|---:|---:|"]
         for c in candidates:
             candidate_lines.append(
-                "| {cid} | {pei:.1f} | {acr:.1f} | {dose:.1f} | {water:.2f} | {res:.3f} | {swell:.4f} | {dry:.2f} | {comp} |".format(
-                    cid=c["candidate_id"],
-                    pei=c["pei_active_pct"],
-                    acr=c["acrylic_dry_pct"],
-                    dose=c["wet_application_g_m2"],
-                    water=c["water_load_g_m2"],
+                "| {sid} | {cid} | {func} | {comp} | {model} | {res:.3f} | {water:.2f} |".format(
+                    sid=c.get("stable_formula_id", c["candidate_id"]),
+                    cid=c.get("display_label", c["candidate_id"]),
+                    func=c.get("functional_status", "UNKNOWN"),
+                    comp=c.get("compatibility_status", "UNKNOWN"),
+                    model=c.get("model_support_status", "UNKNOWN"),
                     res=c["hcho_residual_fraction_mid"],
-                    swell=c["peak_swelling_risk_index"],
-                    dry=c["drying_time_h_mid"],
-                    comp=c["compatibility_status"],
+                    water=c["water_load_g_m2"],
                 )
             )
         candidate_table = "\n".join(candidate_lines)
@@ -230,6 +246,9 @@ def generate_report(input_dir: Path, output_dir: Path, use_llm: bool = False, ru
 Material-balance rows are in `mass_balance.csv`; derived purchasable solution masses are in `assumptions.json`.
 
 Mass fractions sum to 100 on the stated ready-to-use basis. Water includes water in purchased dispersions and PEI solutions.
+
+## Candidate status funnel
+{funnel_table}
 
 ## Discovered candidates
 {candidate_table}
