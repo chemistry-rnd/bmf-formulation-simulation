@@ -21,6 +21,10 @@ on:
         description: "Random seed for reproducibility"
         required: true
         default: "20261013"
+      formula_count:
+        description: "Distinct formulations to screen (blank uses mode default: mock 50, pilot 1000, full 10000)"
+        required: false
+        default: ""
       mode:
         description: "Execution mode"
         required: true
@@ -66,14 +70,22 @@ jobs:
           SCENARIOS: ${{ inputs.scenarios }}
           SEED: ${{ inputs.seed }}
           MODE: ${{ inputs.mode }}
+        env:
+          FORMULA_COUNT: ${{ inputs.formula_count }}
         run: |
           set -euo pipefail
           rm -rf simulation-output
+          if [ -n "${FORMULA_COUNT:-}" ]; then
+            FC_ARG=(--formula-count "$FORMULA_COUNT")
+          else
+            FC_ARG=()
+          fi
           python scripts/run_simulation.py \
             --formulas "$FORMULAS" \
             --scenarios "$SCENARIOS" \
             --seed "$SEED" \
             --mode "$MODE" \
+            "${FC_ARG[@]}" \
             --output-dir simulation-output
 
       - name: Generate research report

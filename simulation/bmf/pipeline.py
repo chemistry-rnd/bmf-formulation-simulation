@@ -107,6 +107,7 @@ def run_pipeline(
     n_scenarios: int,
     seed: int,
     mode: str = "pilot",
+    formula_count: int | None = None,
 ) -> dict[str, Any]:
     if mode not in {"mock", "pilot", "full"}:
         raise ValueError("mode must be mock, pilot or full")
@@ -149,7 +150,9 @@ def run_pipeline(
         )
         base_reference.append(b)
 
-    pool_size = 50 if mode == "mock" else 200 if mode == "pilot" else 500
+    if formula_count is None:
+        formula_count = 50 if mode == "mock" else 1000 if mode == "pilot" else 10000
+    pool_size = formula_count
     candidate_pool = screen_candidates(pool_size, seed + 101)
     eligible_candidates = [c for c in candidate_pool if c.get("status") == "FEASIBLE"]
     selected_candidates = select_distinct(eligible_candidates, base_reference, max_new=3)
@@ -317,6 +320,7 @@ Selected candidates requiring validation: {candidate_ids}.
         "seed": seed,
         "n_scenarios_requested": n_scenarios,
         "n_scenarios_executed_per_formula": n_eff,
+        "formula_count_screened": pool_size,
         "formulas": formula_ids,
         "python_artifact_layout": artifact_paths,
         "sha256": files_hash,

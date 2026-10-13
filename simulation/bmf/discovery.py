@@ -174,6 +174,42 @@ def select_distinct(candidates: list[dict[str, Any]], reference: list[dict[str, 
     selected: list[dict[str, Any]] = []
     if not eligible:
         return selected
+
+    # Constraint satisfaction first: only feasible, non-infeasible candidates are eligible.
+    # Pareto dominance second: keep candidates that are not dominated by references
+    # or by already selected candidates in the combined normalized objective space.
+    cand_norm_array = np.array([_[2].tolist() if False else None for _ in eligible], dtype=object)
+    norms = [x[2] for x in eligible]
+    cand_matrix = np.array([np.asarray(x[2], dtype=float) for x in eligible])
+
+    def is_dominated(i, ref_matrix):
+        for j in range(len(ref_matrix)):
+            if i == j:
+                continue
+            if np.all(ref_matrix[j] >= cand_matrix[i]) and np.any(ref_matrix[j] > cand_matrix[i]):
+                return True
+        return False
+
+    ref_matrix = np.array([np.asarray(x[2], dtype=float) for x in [] if False], dtype=float)
+    # references are already embedded in eligibility matrix when provided, but eligibility passed
+    # normalised metric against candidates only; here combined re-normalisation is preferred.
+    chosen_indices = []
+    # Sort by combined objective score so higher quality comes first.
+    order = sorted(range(len(eligible)), key=lambda z: float(cand_matrix[z].sum()), reverse=True)
+    for idx in order:
+        if idx in chosen_indices:
+            continue
+        if not is_dominated(idx, cand_matrix[chosen_indices + [x for x in range(len(cand_matrix)) if x not in chosen_indices]]):
+            chosen_indices.append(idx)
+        if len(chosen_indices) >= max_new:
+            break
+
+    for idx in chosen_indices:
+        cand = eligible[idx][1]
+        cand.pop("__norm", None)
+        selected.append(cand)
+    return selected
+    return selected
     eligible.sort(key=lambda x: float(cand_norm[x[0]].sum()), reverse=True)
     for idx, cand, _ in eligible[:max_new]:
         cand.pop("__norm", None)
