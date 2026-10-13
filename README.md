@@ -16,3 +16,7 @@ python scripts/package_research_data.py --input-dir simulation-output --output-d
 - deterministic CSV, plots, assumptions and SHA256 checks
 
 All numerical results are virtual model predictions, not laboratory measurements.
+
+## Chemistry trust review
+
+See [docs/chemistry-trust-review/](docs/chemistry-trust-review/) for an independent technical read of model chemistry, transport, and evidentiary limits.
