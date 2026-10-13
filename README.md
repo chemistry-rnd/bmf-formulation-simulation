@@ -27,6 +27,6 @@ projects/
 
 The main Technology Description is written as a complete technology for expert review. Internal uncertainty and work planning belong in research/review files, not in the main document.
 
-Generation is currently manual. CI/LLM automation will implement the same playbook later.
+Generation can be started through the **Generate Technology Description** GitHub Actions workflow, which runs the standard OpenCode agent over the same playbook and rules. The manual workflow remains authoritative when the action is unavailable or when artifacts must be reviewed before publication.
 
 Start with `playbook/technology-description.md`.

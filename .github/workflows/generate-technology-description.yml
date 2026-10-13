@@ -1,0 +1,102 @@
+name: Generate Technology Description
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Project slug under projects/"
+        required: true
+        default: "formaldehyde-scavenger"
+      mode:
+        description: "Run mode"
+        required: true
+        type: choice
+        options:
+          - create
+          - revise
+        default: "create"
+      base_ref:
+        description: "Git ref to generate from"
+        required: false
+        default: "main"
+      budget_tier:
+        description: "Budget tier"
+        required: false
+        type: choice
+        options:
+          - low
+          - standard
+          - high
+        default: "standard"
+
+concurrency:
+  group: rnd-forge-${{ inputs.project }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+      OPENCODE_PERMISSION: '{"bash":"allow","edit":"allow","write":"allow","external_directory":"allow"}'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base_ref || github.ref }}
+          fetch-depth: 0
+
+      - name: Install OpenCode
+        run: curl -fsSL https://opencode.ai/install | bash
+
+      - name: Run standard OpenCode agent
+        run: |
+          set -euo pipefail
+          opencode run --auto <<'PROMPT'
+          You are the standard OpenCode agent running inside GitHub Actions for the R&D Forge repository.
+
+          Run mode: ${{ inputs.mode }}
+          Project slug: ${{ inputs.project }}
+          Budget tier: ${{ inputs.budget_tier }}
+
+          Read and follow:
+          1. rules/technology-description.md
+          2. playbook/technology-description.md
+          3. playbook/executable-stages.md
+          4. projects/${{ inputs.project }}/requirements.md
+          5. projects/${{ inputs.project }}/requirements-log.md
+          6. all files under projects/${{ inputs.project }}/input/
+          7. existing research and outputs under projects/${{ inputs.project }}/output/, if present
+
+          Execute the full playbook in the requested run mode. Use targeted research where the playbook requires it, generate the required intermediate and final artifacts, apply the mandatory QA gates, and repair localized failures instead of restarting unrelated work.
+
+          Important output discipline:
+          - Keep expert-facing content in projects/${{ inputs.project }}/output/final-result/.
+          - Keep research and analysis in projects/${{ inputs.project }}/output/research/ and projects/${{ inputs.project }}/output/analysis/.
+          - Write output/final-result/current.md and the next immutable output/final-result/versions/vNNN.md.
+          - Write output/ai-research-specification.md.
+          - Write output/final-result/promotion-changes.md.
+          - Do not add a standalone Sources, References or Bibliography section to the expert-facing document; keep citations in research files.
+          - Do not leave provisional wording, placeholders, vague functions, unsupported measured outcomes or redundant concluding recaps in the final document.
+          - Do not ask for confirmation; make the smallest reasonable decisions required to complete the run and record uncertainty in review notes.
+          - Do not publish commits or pull requests. The workflow publishes artifacts.
+
+          At the end, print a concise run report listing generated files, applied QA gates, remaining limitations and artifact paths.
+          PROMPT
+
+      - name: Upload generated artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnd-forge-${{ inputs.project }}-${{ github.run_id }}
+          path: |
+            projects/${{ inputs.project }}/output/
+            projects/${{ inputs.project }}/work/
+            projects/${{ inputs.project }}/requirements.md
+            projects/${{ inputs.project }}/requirements-log.md
+          retention-days: 30
+          if-no-files-found: warn
