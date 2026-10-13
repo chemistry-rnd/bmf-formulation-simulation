@@ -4,13 +4,13 @@ from dataclasses import dataclass
 from typing import Any
 
 import numpy as np
+from scipy.integrate import solve_ivp
 
 
 def _trapezoid(y, x):
     if hasattr(np, "trapezoid"):
         return float(np.trapezoid(y, x))
     return float(np.trapz(y, x))
-from scipy.integrate import solve_ivp
 
 
 @dataclass
@@ -36,45 +36,62 @@ class MoistureDiffusion1D:
 
 
 def moisture_diffusion_1d(model: MoistureDiffusion1D) -> dict[str, Any]:
-    """One-dimensional Fickian moisture diffusion/evaporation.
+    """One-dimensional Fickian moisture diffusion/evaporation with Robin boundaries.
 
-    Units: concentration kg/m3, diffusivity m2/s, h_m m/s. Boundary flux is
-    h_m (C_surface - C_ambient). This is a parameterized physical model; D and
-    h_m are not installed-material calibration data unless explicitly stated.
+    The integrated form is used for mass conservation:
+    (M_final - M_initial) + integral incoming/outgoing flux dt = 0.
+    Positive flux is defined as transport from surface to surrounding air.
     """
     model.require_inputs()
     x = np.linspace(0.0, model.board_thickness_m, model.nodes)
     dx = x[1] - x[0]
     c0 = np.full(model.nodes, model.initial_concentration_kg_m3, dtype=float)
-    t0 = 0.0
     tf = model.exposure_hours * 3600.0
-    # Reduced state: concentrations at nodes. Define derivatives.
-    # Robin boundaries approximated by ghost-node fluxes.
-    def derivatives(t, c):
-        dcdt = np.zeros_like(c)
-        # interior second derivative
-        for i in range(1, model.nodes - 1):
-            dcdt[i] = model.diffusivity_m2_s * (c[i - 1] - 2 * c[i] + c[i + 1]) / dx**2
-        # left boundary flux (into/out of board from environment)
-        flux_left = model.surface_transfer_coeff_m_s * (model.ambient_equilibrium_kg_m3 - c[0])
-        dcdt[0] = flux_left / dx if model.both_surfaces else (flux_left - _internal_flux(c, 0, dx, model)) / dx
-        # For a simple Robin treatment, boundary node mass balance uses ghost cell.
-        # Right boundary
-        flux_right = model.surface_transfer_coeff_m_s * (model.ambient_equilibrium_kg_m3 - c[-1])
-        dcdt[-1] += flux_right / dx
-        return dcdt
 
-    sol = solve_ivp(derivatives, (t0, tf), c0, method="RK23", max_step=300.0, dense_output=True, rtol=1e-7, atol=1e-9)
-    if not sol.success:
-        raise RuntimeError("moisture diffusion integration failed: " + sol.message)
-    c_final = sol.y[:, -1]
-    initial_mass = _trapezoid(c0, x)
-    final_mass = _trapezoid(c_final, x)
+    def ode(t, c):
+        out = np.zeros_like(c)
+        # interior cells
+        out[1:-1] = model.diffusivity_m2_s * (c[:-2] - 2 * c[1:-1] + c[2:]) / dx**2
+        # left boundary cell, finite volume
+        out[0] = (model.diffusivity_m2_s * (c[1] - c[0]) / dx + model.surface_transfer_coeff_m_s * (model.ambient_equilibrium_kg_m3 - c[0])) / dx
+        if model.both_surfaces:
+            out[-1] = (model.diffusivity_m2_s * (c[-2] - c[-1]) / dx + model.surface_transfer_coeff_m_s * (model.ambient_equilibrium_kg_m3 - c[-1])) / dx
+        else:
+            out[-1] = model.diffusivity_m2_s * (c[-2] - c[-1]) / dx**2
+        return out
+
+    if tf == 0:
+        sol_t = np.array([0.0])
+        sol_y = c0[:, None]
+        sol = None
+    else:
+        n_times = max(51, int(tf / 10.0) if tf <= 3600 else 201)
+        t_eval = np.linspace(0.0, tf, n_times)
+        sol = solve_ivp(ode, (0.0, tf), c0, method="RK45", t_eval=t_eval, rtol=1e-9, atol=1e-11, max_step=max(tf / 200.0, 1.0))
+        if not sol.success:
+            raise RuntimeError("moisture diffusion integration failed: " + sol.message)
+        sol_t = sol.t
+        sol_y = sol.y
+
+    c_final = sol_y[:, -1]
+    initial_mass = float(dx * np.sum(c0))
+    final_mass = float(dx * np.sum(c_final))
     mass_change = final_mass - initial_mass
-    evaporated_equivalent = max(-mass_change, 0.0)  # negative final mass change can be evaporation
-    absorbed = max(mass_change, 0.0)
-    profile_range = np.ptp(c_final)
-    conserved = np.isfinite(c_final).all() and not np.any(c_final < -1e-9)
+
+    # Integrate boundary fluxes using the solution at output time points.
+    if tf == 0:
+        integrated_outward_flux = 0.0
+    else:
+        left_flux = model.surface_transfer_coeff_m_s * (sol_y[0, :] - model.ambient_equilibrium_kg_m3)
+        if model.both_surfaces:
+            right_flux = model.surface_transfer_coeff_m_s * (sol_y[-1, :] - model.ambient_equilibrium_kg_m3)
+            total_flux = left_flux + right_flux
+        else:
+            total_flux = left_flux
+        integrated_outward_flux = float(np.trapezoid(total_flux.values if hasattr(total_flux, "values") else total_flux, sol_t)) if len(sol_t) > 1 else 0.0
+    flux_mass_change = -integrated_outward_flux
+    balance_error = mass_change - flux_mass_change
+    tol = max(1e-8, 1e-4 * (abs(initial_mass) + 1.0))
     return {
         "grid_m": x.tolist(),
         "initial_concentration_kg_m3": model.initial_concentration_kg_m3,
@@ -82,16 +99,15 @@ def moisture_diffusion_1d(model: MoistureDiffusion1D) -> dict[str, Any]:
         "initial_mass_kg_m2": float(initial_mass),
         "final_mass_kg_m2": float(final_mass),
         "mass_change_kg_m2": float(mass_change),
-        "evaporated_equivalent_kg_m2": float(evaporated_equivalent),
-        "absorbed_from_environment_kg_m2": float(absorbed),
-        "final_min_kg_m3": float(c_final.min()),
-        "final_max_kg_m3": float(c_final.max()),
-        "profile_range_kg_m3": float(profile_range),
-        "numerical_mass_conservation_ok": conserved,
+        "integrated_outward_flux_kg_m2": float(integrated_outward_flux),
+        "mass_balance_residual_kg_m2": float(balance_error),
+        "profile_range_kg_m3": float(np.ptp(c_final)),
+        "numerical_mass_conservation_ok": bool(abs(balance_error) <= tol and np.isfinite(c_final).all()),
+        "incoming_mass_kg_m2": float(max(integrated_outward_flux, 0.0)),
+        "outgoing_mass_kg_m2": float(min(integrated_outward_flux, 0.0) or 0.0),
         "parameters_calibrated": False,
-        "note": "parameterized CPU diffusion with Robin boundary conditions; dimensions kg/m3 and m2/s.",
+        "note": "quantitative integrated-flux moisture balance; D and transfer coefficient remain uncalibrated.",
     }
-
 
 
 @dataclass
@@ -146,18 +162,27 @@ def hcho_reaction_diffusion(
     b[-1] = ambient_concentration_kg_m3
     profile = np.linalg.solve(a, b)
     gradient_left = (profile[1] - profile[0]) / h
-    flux = -diffusivity_m2_s * gradient_left
+    gradient_right = (profile[-1] - profile[-2]) / h
+    substrate_interface_flux = -diffusivity_m2_s * gradient_left
+    ambient_emission_flux = -diffusivity_m2_s * gradient_right
+    reaction_consumption = substrate_interface_flux - ambient_emission_flux
+    reaction_integral = float(np.trapezoid(np.maximum(profile, 0.0), x) * reaction_rate_1_s) if hasattr(np, "trapezoid") else float(np.trapz(np.maximum(profile, 0.0), x) * reaction_rate_1_s)
     return {
         "thickness_m": coating_thickness_m,
         "diffusivity_m2_s": diffusivity_m2_s,
         "reaction_rate_1_s": reaction_rate_1_s,
+        "substrate_interface_flux_kg_m2_s": float(substrate_interface_flux),
+        "ambient_emission_flux_kg_m2_s": float(ambient_emission_flux),
+        "surface_flux_kg_m2_s": float(ambient_emission_flux),  # backwards-compatible alias
+        "reaction_consumption_kg_m2_s": float(reaction_consumption),
+        "reaction_integral_kg_m2_s": float(reaction_integral),
         "substrate_concentration_kg_m3": substrate_concentration_kg_m3,
         "ambient_concentration_kg_m3": ambient_concentration_kg_m3,
-        "surface_flux_kg_m2_s": float(flux),
         "layer_integrated_concentration_kg_m2": float(_trapezoid(profile, x)),
         "concentration_profile_kg_m3": profile.tolist(),
+        "mass_balance_residual_kg_m2_s": float(reaction_consumption - reaction_integral),
         "rate_constant_calibrated": False,
-        "note": "steady-state reaction-diffusion surrogate; rate constant must be measured for quantitative claims.",
+        "note": "steady-state reaction-diffusion; rate constants and diffusivities require calibration.",
     }
 
 

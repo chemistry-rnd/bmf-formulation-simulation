@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from .analysis import aggregate_properties, pareto_table, sensitivity_analysis
+from .chemistry import PEI_NITROGEN_MASS_FRACTION
 from .discovery import build_candidate, screen_candidates, search_candidates, select_distinct, MODEL_VERSION as DISCOVERY_VERSION
 from .experiments import MODEL_VERSION, run_virtual_experiments
 from .formulations import ALL_FORMULATIONS, FORMULATIONS, SUPPLIER_ASSUMPTIONS
@@ -41,7 +42,7 @@ def sha256_file(path: Path) -> str:
 def _assumptions() -> dict[str, Any]:
     return {
         "scientific_audit_v0.4": {
-            "pei_nitrogen_mass_fraction_previous": 0.232558,
+            "pei_nitrogen_mass_fraction_previous": None,
             "pei_nitrogen_mass_fraction_updated": 0.3252,
             "basis": "ideal linear PEI repeat unit C2H5N; supplier/grade basis still requires confirmation",
             "stoichiometric_capacity_is_not_kinetic_yield": True,
@@ -70,7 +71,7 @@ def _assumptions() -> dict[str, Any]:
             "pei_solution_active_mass_fraction": 0.50,
             "acrylic_dispersion_dry_solids_mass_fraction": 0.50,
             "nonionic_wetter_mass_fraction": 1.00,
-            "pei_nitrogen_mass_fraction": 0.232558,
+            "pei_nitrogen_mass_fraction": PEI_NITROGEN_MASS_FRACTION,  # single source from chemistry.py
             "stoichiometry_upper_bound_hcho_per_nitrogen": "1 to 2, selected with stated uncertainty",
             "group_availability_fraction_range": [0.20, 1.00],
             "irreversibility_fraction_range": [0.20, 0.95],

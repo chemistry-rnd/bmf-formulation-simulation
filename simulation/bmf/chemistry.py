@@ -24,7 +24,7 @@ def pei_group_capacity_g_m2(
     pei_active_g_m2: float,
     primary_fraction: float = 0.60,
     secondary_fraction: float = 0.30,
-    tertiary_fraction: float = 0.20,
+    tertiary_fraction: float = 0.10,
     primary_accessibility: float = 0.80,
     secondary_accessibility: float = 0.50,
     tertiary_accessibility: float = 0.20,

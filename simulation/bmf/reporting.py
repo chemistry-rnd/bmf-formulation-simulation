@@ -236,7 +236,7 @@ Mass fractions sum to 100 on the stated ready-to-use basis. Water includes water
 
 ## 3. Methods, equations and assumptions
 See `assumptions.json`. Main equations:
-- PEI nitrogen mass = PEI active mass x `{assumptions.get('supplier_and_material_assumptions', {}).get('pei_nitrogen_mass_fraction', 0.232558)}`.
+- PEI nitrogen mass = PEI active mass x `{assumptions.get('supplier_and_material_assumptions', {}).get('pei_nitrogen_mass_fraction', 0.3252)}`.
 - Theoretical formaldehyde capacity uses nitrogen moles times an uncertain stoichiometry bound of 1-2 HCHO per nitrogen, adjusted by group availability and irreversibility.
 - Drying and transport outputs are parametric surrogates with uncalibrated coefficients.
 Data gaps are listed under missing inputs and in `limitations.md` from the simulation artifact.
