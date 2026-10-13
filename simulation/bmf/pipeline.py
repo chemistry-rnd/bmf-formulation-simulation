@@ -40,7 +40,21 @@ def sha256_file(path: Path) -> str:
 
 def _assumptions() -> dict[str, Any]:
     return {
+        "scientific_audit_v0.4": {
+            "pei_nitrogen_mass_fraction_previous": 0.232558,
+            "pei_nitrogen_mass_fraction_updated": 0.3252,
+            "basis": "ideal linear PEI repeat unit C2H5N; supplier/grade basis still requires confirmation",
+            "stoichiometric_capacity_is_not_kinetic_yield": True,
+            "uncalibrated_modules": [
+                "moisture diffusivity",
+                "surface mass transfer",
+                "HCHO reaction rate",
+                "coating thickness density",
+                "swelling calibration",
+            ],
+        },
         "source": "PR #4 BMF candidate formulations (research input, not laboratory data)",
+
         "result_type": "virtual computational screen, not experimental measurement",
         "models_are_not_replacements_for_laboratory_tests": True,
         "available_ingredients": {

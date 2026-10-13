@@ -12,7 +12,7 @@ from .formulations import SUPPLIER_ASSUMPTIONS
 from .transport import drying_time_h, hcho_residual_fraction, peak_swelling_risk_index
 
 
-MODEL_VERSION = "bmf-cpu-v0.3.0"
+MODEL_VERSION = "bmf-cpu-v0.4.0"
 
 
 @dataclass(frozen=True)
