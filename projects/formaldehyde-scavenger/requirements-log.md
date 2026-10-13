@@ -41,3 +41,15 @@ Source: user-uploaded `Версия 16.md`, compared with `output/final-result/c
 - Global rules remain active: neutral patent catalogue, cluster classification, vertical competitor matrix, no sources appendix, numeric evidence provenance.
 
 A reviewer file never automatically cancels these decisions. Any reversal requires explicit user authorization, recorded with `supersedes` and a reason.
+
+
+## R006 — 2026-10-13 — Expert technology v018 from CPU simulation v0.3
+- Source: GitHub Actions run 38430591444, model bmf-cpu-v0.3.0, archived simulation artifacts and technologists' 2026-10-12 feedback.
+- Maintain LDSP fresh-cut application and three basic engineering variants A/B/C. D/E/F are screening candidates, **not qualified manufacturing formulas**.
+- Include measured-versus-model distinction, dry-solids basis and total water balance. Chemical compatibility and manufacturing feasibility UNKNOWN for concentrated PEI/acrylic blends.
+- Preserve prior design goals 9 min, 36 g/m², <=0.060 mm, >=70% HCHO at 90 days as engineering specifications; do not claim they were measured or proved by surrogates.
+- Retain previous market comparison scenarios for discussion only with explicit provenance disclaimer; do not map them to A/B/C.
+- Include connection to project calculator for geometric cut area/cost only. Whole-product HCHO needs lab-calibrated model.
+- Versioned expert document v018 saved on feature branch; no automatic acceptance or deployment.
+- Follow-up evidence gaps: laboratory emission over time, peak and residual swelling, actual installation readiness, PEI/acrylic viscosity/compatibility, VOC and storage stability.
+- Source run performed only 1000 scenarios per formula despite mode name; no claim of 10k search.
