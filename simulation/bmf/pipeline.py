@@ -205,7 +205,23 @@ def run_pipeline(
     ]
     pd.DataFrame(target_rows).to_csv(output_dir / "target-feasibility.csv", index=False)
 
-    (output_dir / "experiment-plan.md").write_text("See report for highest-information tests.\\n", encoding="utf-8")
+    candidate_ids = ", ".join(c["candidate_id"] for c in selected_candidates) if selected_candidates else "none"
+    experiment_plan = f"""# Proposed highest-information laboratory experiments
+
+Selected candidates requiring validation: {candidate_ids}.
+
+1. Manufacturability jar tests for selected candidates: PEI-acrylic mixing, pH, viscosity, sedimentation, storage at 4 C, 23 C and 40 C.
+2. Application dose accuracy on fresh LDSP cut edges for A, B, C and selected candidates using a controlled applicator, not sponge only.
+3. Peak and residual swelling at equal wet dose on matched LDSP batches, with untreated and carrier-only controls.
+4. Formaldehyde emission time course after treatment under identical chamber/conditions.
+5. VOC/odor panel and analytical screening.
+6. Shelf-life and redispersibility after at least 4 weeks.
+7. Carrier-only control to separate water effects from PEI/acrylic effects.
+8. Dose-response low/mid/high for the leading candidate.
+9. Sensitivity to humidity and temperature during conditioning.
+10. Alternative binder architecture if any selected PEI plus acrylic blend coagulates or separates.
+"""
+    (output_dir / "experiment-plan.md").write_text(experiment_plan, encoding="utf-8")
     sens_rows = sensitivity_analysis(prop_df, {}, seed)
 
     sens_df = pd.DataFrame(sens_rows)
