@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
-FormulationId = Literal["A", "B", "C"]
+FormulationId = Literal["A", "B", "C", "D", "E", "F"]
 
 
 @dataclass(frozen=True)
@@ -54,6 +54,48 @@ FORMULATIONS: dict[str, Formulation] = {
             "water_carrier": 71.9,
         },
     ),
+    # D/E/F are the research-candidate series fixed by the testing program
+    # (projects/formaldehyde-scavenger/output/testing-program, Приложение 1):
+    # compositions and doses are taken from that document, not re-derived here.
+    "D": Formulation(
+        name="D Low Dose",
+        use="negative control: dose dependence of the calculated effect",
+        wet_application_g_m2=11.35,
+        mass_fractions={
+            "pei_active": 0.17,
+            "urea": 0.0,
+            "acrylic_dry_solids": 0.0,
+            "nonionic_wetter": 0.1,
+            "other_nonvolatile_binder": 0.0,
+            "water_carrier": 99.73,
+        },
+    ),
+    "E": Formulation(
+        name="E Conc Combo",
+        use="concentrated PEI plus acrylic combination with low carrier load",
+        wet_application_g_m2=10.24,
+        mass_fractions={
+            "pei_active": 16.51,
+            "urea": 0.0,
+            "acrylic_dry_solids": 28.51,
+            "nonionic_wetter": 0.1,
+            "other_nonvolatile_binder": 0.0,
+            "water_carrier": 54.88,
+        },
+    ),
+    "F": Formulation(
+        name="F Bal Conc",
+        use="balanced concentrated PEI plus acrylic combination",
+        wet_application_g_m2=10.01,
+        mass_fractions={
+            "pei_active": 13.04,
+            "urea": 0.0,
+            "acrylic_dry_solids": 26.23,
+            "nonionic_wetter": 0.1,
+            "other_nonvolatile_binder": 0.0,
+            "water_carrier": 60.63,
+        },
+    ),
 }
 
 SUPPLIER_ASSUMPTIONS = {
@@ -64,7 +106,7 @@ SUPPLIER_ASSUMPTIONS = {
     "linear_piece_length_m": 1.0,
 }
 
-ALL_FORMULATIONS = ["A", "B", "C"]
+ALL_FORMULATIONS = ["A", "B", "C", "D", "E", "F"]
 
 
 def validate_formula(f_id: str) -> None:

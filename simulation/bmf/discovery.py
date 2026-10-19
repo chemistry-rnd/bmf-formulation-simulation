@@ -19,6 +19,23 @@ MIN_PEI_FOR_MODELLED_HCHO = 2.0
 BASELINE_A_CAPACITY_THRESHOLD = 0.05
 
 
+def discovery_labels(used_ids: set[str], count: int) -> list[str]:
+    """Letters for discovered candidates that never collide with formulation ids.
+
+    Formulation ids occupy A..F, so discovered candidates start at the first
+    free letter. Labels stay per-run and are not stable across runs; the stable
+    identity is ``stable_formula_id``.
+    """
+    labels: list[str] = []
+    index = 0
+    while len(labels) < count:
+        letter = chr(ord("A") + index)
+        index += 1
+        if letter not in used_ids:
+            labels.append(letter)
+    return labels
+
+
 @dataclass(frozen=True)
 class FunctionalStatus:
     mass_balance_status: str
