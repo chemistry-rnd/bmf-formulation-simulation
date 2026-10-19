@@ -10,11 +10,14 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from simulation.bmf.formulations import ALL_FORMULATIONS
 from simulation.bmf.pipeline import run_pipeline
 
 
 def parse_formulas(value: str) -> list[str]:
-    if value.lower() in {"all", "a,b,c"}:
+    if value.lower() == "all":
+        return list(ALL_FORMULATIONS)
+    if value.lower() == "a,b,c":
         return ["A", "B", "C"]
     return [item.strip().upper() for item in value.split(",") if item.strip()]
 

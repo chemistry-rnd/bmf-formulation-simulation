@@ -17,7 +17,13 @@ import pandas as pd
 
 from .analysis import aggregate_properties, pareto_table, sensitivity_analysis
 from .chemistry import PEI_NITROGEN_MASS_FRACTION
-from .discovery import build_candidate, screen_candidates, select_distinct, MODEL_VERSION as DISCOVERY_VERSION
+from .discovery import (
+    MODEL_VERSION as DISCOVERY_VERSION,
+    build_candidate,
+    discovery_labels,
+    screen_candidates,
+    select_distinct,
+)
 from .experiments import MODEL_VERSION, run_virtual_experiments
 from .formulations import ALL_FORMULATIONS, FORMULATIONS, SUPPLIER_ASSUMPTIONS
 from .mass_balance import mass_balance_all
@@ -157,7 +163,8 @@ def run_pipeline(
     candidate_pool = screen_candidates(pool_size, seed + 101)
     eligible_candidates = [c for c in candidate_pool if c.get("status") == "FEASIBLE"]
     selected_candidates = select_distinct(eligible_candidates, base_reference, max_new=3)
-    for rank, (letter, candidate) in enumerate(zip(["D", "E", "F", "G", "H"], selected_candidates), start=1):
+    discovery_candidate_labels = discovery_labels(set(formula_ids), len(selected_candidates))
+    for rank, (letter, candidate) in enumerate(zip(discovery_candidate_labels, selected_candidates), start=1):
         candidate["candidate_id"] = letter
         candidate["display_label"] = letter
         candidate["candidate_rank"] = rank
@@ -233,7 +240,7 @@ def run_pipeline(
 Selected candidates requiring validation: {candidate_ids}.
 
 1. Manufacturability jar tests for selected candidates: PEI-acrylic mixing, pH, viscosity, sedimentation, storage at 4 C, 23 C and 40 C.
-2. Application dose accuracy on fresh LDSP cut edges for A, B, C and selected candidates using a controlled applicator, not sponge only.
+2. Application dose accuracy on fresh LDSP cut edges for {', '.join(formula_ids)} and selected candidates using a controlled applicator, not sponge only.
 3. Peak and residual swelling at equal wet dose on matched LDSP batches, with untreated and carrier-only controls.
 4. Formaldehyde emission time course after treatment under identical chamber/conditions.
 5. VOC/odor panel and analytical screening.
